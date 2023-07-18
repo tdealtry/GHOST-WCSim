@@ -1,0 +1,21 @@
+name: Run clang-format Linter
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/hyperk/clang_format:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: make_safe
+      run: git config --global --add safe.directory '*'
+    - name: format
+      run: git clone https://github.com/hyperk/hk-ClangFormat.git && cd hk-ClangFormat && ./run.sh && cd .. && rm -rf hk-ClangFormat  
+    - uses: EndBug/add-and-commit@v9
+      with:
+        author_name: Clang Robot
+        author_email: robot@example.com
+        message: 'Committing clang-format changes'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
