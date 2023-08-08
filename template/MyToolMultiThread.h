@@ -9,8 +9,8 @@
 /**
  * \struct MyToolMultiThread_args
  *
- * This is a struct to place data you want your thread to acess or exchange with it. The idea is the
- * datainside is only used by the thread and so will be thread safe
+ * This is a struct to place data you want your thread to access or exchange with it. The idea is the
+ * data inside is only used by the thread and so will be thread safe
  *
  * $Author: B.Richards $
  * $Date: 2019/05/28 10:44:00 $
@@ -27,7 +27,7 @@ struct MyToolMultiThread_args : Thread_args {
 /**
  * \class MyToolMultiThread
  *
- * This is a template for a Tool That employs mulitple threads. Please fill out the descripton and author
+ * This is a template for a Tool that employs multiple threads. Please fill out the description and author
  * information.
  *
  * $Author: B.Richards $
@@ -40,12 +40,12 @@ class MyToolMultiThread : public Tool {
 
 		MyToolMultiThread();  ///< Simple constructor
 		bool Initialise(std::string configfile,
-		                DataModel& data);  ///< Initialise Function for setting up Tool resorces. @param
+		                DataModel& data);  ///< Initialise Function for setting up Tool resources. @param
 		                                   ///< configfile The path and name of the dynamic configuration file
 		                                   ///< to read in. @param data A reference to the transient data
 		                                   ///< class used to pass information between Tools.
-		bool Execute();                    ///< Executre function used to perform Tool perpose.
-		bool Finalise();                   ///< Finalise funciton used to clean up resorces.
+		bool Execute();                    ///< Executre function used to perform Tool purpose.
+		bool Finalise();                   ///< Finalise function used to clean up resources.
 
 	private:
 
