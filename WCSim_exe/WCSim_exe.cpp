@@ -1,5 +1,18 @@
 #include "WCSim_exe.h"
 
+#include "G4UImanager.hh"
+
+#include "WCSimTuningParameters.hh"
+#include "WCSimRandomParameters.hh"
+#include "WCSimDetectorConstruction.hh"
+#include "WCSimPhysicsListFactory.hh"
+#include "WCSimPrimaryGeneratorAction.hh"
+#include "WCSimEventAction.hh"
+#include "WCSimRunAction.hh"
+#include "WCSimStackingAction.hh"
+#include "WCSimTrackingAction.hh"
+#include "WCSimSteppingAction.hh"
+
 using namespace HK::GHOST;
 
 bool HK::GHOST::utils::FileExists(const char * filename) {
@@ -63,16 +76,77 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	std::string wcsim_mac_tuning_filename = GetConfigFilename("wcsim_mac_tuning_filename", (wcsim_dir + "/macros/tuning_parameters.mac").c_str());
 	std::string wcsim_mac_filename = GetConfigFilename("wcsim_mac_filename", (wcsim_dir + "/WCSim.mac").c_str());
 
-	
+	// Construct the default run manager
+  m_p_run_manager = new G4RunManager;
+
+  // get the pointer to the UI manager
+  G4UImanager* UI = G4UImanager::GetUIpointer();
+
+  // Set up the tuning parameters that need to be read before the detector
+  //  construction is done
+  WCSimTuningParameters* tuningpars = new WCSimTuningParameters();
+	std::cout << "Processing tuning parameter file " << wcsim_mac_tuning_filename << std::endl;
+	UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
+
+	  // define random number generator parameters
+  WCSimRandomParameters *randomparameters = new WCSimRandomParameters();
+
+  // UserInitialization classes (mandatory)
+  enum DetConfiguration {wfm=1,fwm=2};
+  G4int WCSimConfiguration = fwm;
+
+  WCSimDetectorConstruction* WCSimdetector = new 
+    WCSimDetectorConstruction(WCSimConfiguration,tuningpars);
+
+  m_p_run_manager->SetUserInitialization(WCSimdetector);
+
+  // Added selectable physics lists 2010-07 by DMW
+  // Set up the messenger hooks here, initialize the actual list after loading jobOptions.mac
+  WCSimPhysicsListFactory *physFactory = new WCSimPhysicsListFactory();
+
+	UI->ApplyCommand("/control/execute " + wcsim_mac_job_opt_filename);
+
+  // Initialize the physics factory to register the selected physics.
+  physFactory->InitializeList();
+  m_p_run_manager->SetUserInitialization(physFactory);
+
+	// Set user action classes
+  WCSimPrimaryGeneratorAction* myGeneratorAction = new 
+    WCSimPrimaryGeneratorAction(WCSimdetector);
+  m_p_run_manager->SetUserAction(myGeneratorAction);
+
+  WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
+
+  //save all the options from WCSimTuningParameters & WCSimPhysicsListFactory
+  //(set in tuning_parameters.mac & jobOptions*.mac)
+  tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());
+  physFactory->SaveOptionsToOutput(myRunAction->GetRootOptions());
+
+  m_p_run_manager->SetUserAction(myRunAction);
+
+  m_p_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector,
+						 myGeneratorAction));
+  m_p_run_manager->SetUserAction(new WCSimTrackingAction);
+
+  m_p_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
+
+  m_p_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction,WCSimdetector));
+
+  // Initialize G4 kernel
+  m_p_run_manager->Initialize();
+
+	UI->ApplyCommand("/control/execute " + wcsim_mac_filename);
 	return true;
 }
 
 bool WCSim_exe::Execute() {
 
+	
 	return true;
 }
 
 bool WCSim_exe::Finalise() {
-
+	delete m_p_run_manager;
+	
 	return true;
 }

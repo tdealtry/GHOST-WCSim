@@ -6,6 +6,8 @@
 
 #include "Tool.h"
 
+#include "G4RunManager.hh"
+
 /**
  * \class WCSim_exe
  *
@@ -40,6 +42,8 @@ class WCSim_exe : public Tool {
 	*/
 	std::string GetConfigFilename(const char * config_param,
 																const char * default_filename);
+
+	G4RunManager * m_p_run_manager;
 };
 
 		namespace utils {
