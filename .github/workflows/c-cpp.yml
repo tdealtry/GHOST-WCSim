@@ -20,8 +20,25 @@ jobs:
     - name: build hk-datamodel
       run: git clone https://github.com/hyperk/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel && cd /usr/local/hk/hk-ToolApp/hk-DataModel && make  
     - uses: actions/checkout@v2
+    - name: build WCSim
+      run: |
+        source /usr/local/hk/hk-pilot/setup.sh
+        source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
+        source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
+        source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh
+        mkdir OriginalWCSim_build
+        cd OriginalWCSim_build
+        cmake ../OriginalWCSim
+        make
+        make install
     - name: build
-      run:  make 
+      run: |
+        source /usr/local/hk/hk-pilot/setup.sh
+        source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
+        source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
+        source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh
+        export WCSIMDIR=$PWD/OriginalWCSim/
+        make
 
  
  
