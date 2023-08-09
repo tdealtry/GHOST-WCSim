@@ -6,33 +6,33 @@ class G4UIdirectory;
 class G4UIcmdWithAString;
 class G4UIcmdWithABool;
 
+#include "G4UIcmdWithABool.hh"
 #include "G4UImessenger.hh"
 #include "globals.hh"
-#include "G4UIcmdWithABool.hh"
 
-class WCSimRunActionMessenger: public G4UImessenger
-{
- public:
-  WCSimRunActionMessenger(WCSimRunAction* mpga);
-  ~WCSimRunActionMessenger();
-  
- public:
-  void     SetNewValue(G4UIcommand* command, G4String newValues);
-  
- private:
-  WCSimRunAction* WCSimRun;
+class WCSimRunActionMessenger : public G4UImessenger {
+	public:
 
- private: //commands
-  G4UIdirectory*      WCSimIODir;
-  G4UIcmdWithAString* RootFile;
+		WCSimRunActionMessenger(WCSimRunAction* mpga);
+		~WCSimRunActionMessenger();
 
-  G4UIcmdWithABool* WriteDefaultRootFile;
-  G4UIcmdWithABool* RooTracker;
+	public:
 
-  G4UIcmdWithABool*   UseTimer;
+		void SetNewValue(G4UIcommand* command, G4String newValues);
 
+	private:
+
+		WCSimRunAction* WCSimRun;
+
+	private:  // commands
+
+		G4UIdirectory* WCSimIODir;
+		G4UIcmdWithAString* RootFile;
+
+		G4UIcmdWithABool* WriteDefaultRootFile;
+		G4UIcmdWithABool* RooTracker;
+
+		G4UIcmdWithABool* UseTimer;
 };
 
 #endif
-
-

@@ -11,58 +11,65 @@
 
 class WCSimWLSProperties {
 
- public:
-  virtual G4String  GetWLSPlateName()=0;
-  virtual G4int     GetNumEntries()=0;
-  virtual G4int     GetNumEntriesTransmittance()=0;
-  virtual G4double* GetPhotonWL()=0;
-  virtual G4double* GetPhotonEnergy()=0;
-  virtual G4double* GetRIndex()=0;
-  virtual G4double* GetAbs()=0;
-  virtual G4double* GetEm()=0;
+	public:
 
- public:
-  TGraph* GetgAbs(){ return gAbs;};
-  TGraph* GetgEm() { return gEm;};
-  TGraph *gAbs = nullptr;
-  TGraph *gEm = nullptr;
-  TH1F *emissionHist = nullptr;
+		virtual G4String GetWLSPlateName()         = 0;
+		virtual G4int GetNumEntries()              = 0;
+		virtual G4int GetNumEntriesTransmittance() = 0;
+		virtual G4double* GetPhotonWL()            = 0;
+		virtual G4double* GetPhotonEnergy()        = 0;
+		virtual G4double* GetRIndex()              = 0;
+		virtual G4double* GetAbs()                 = 0;
+		virtual G4double* GetEm()                  = 0;
 
-  ~WCSimWLSProperties(){
-    delete gAbs;
-  	delete gEm;
-	  delete emissionHist;
-  }
+	public:
+
+		TGraph* GetgAbs() { return gAbs; };
+
+		TGraph* GetgEm() { return gEm; };
+
+		TGraph* gAbs       = nullptr;
+		TGraph* gEm        = nullptr;
+		TH1F* emissionHist = nullptr;
+
+		~WCSimWLSProperties() {
+			delete gAbs;
+			delete gEm;
+			delete emissionHist;
+		}
 };
 
-class EljenEJ286 : public WCSimWLSProperties{
+class EljenEJ286 : public WCSimWLSProperties {
 
- public:
-  EljenEJ286();
-  ~EljenEJ286();
+	public:
 
- public:
-  G4String  GetWLSPlateName();
-  G4int     GetNumEntries();
-  G4int     GetNumEntriesTransmittance();
-  G4double* GetPhotonWL();
-  G4double* GetPhotonEnergy();
-  G4double* GetTransmittance();
-  G4double* GetRIndex();
+		EljenEJ286();
+		~EljenEJ286();
 
-  G4int     GetNumEntries_ABS();
-  G4double* GetPhotonEnergy_ABS();
-  G4double* GetAbs();
+	public:
 
-  G4int     GetNumEntries_EM();
-  G4double* GetPhotonEnergy_EM();
-  G4double* GetEm();
+		G4String GetWLSPlateName();
+		G4int GetNumEntries();
+		G4int GetNumEntriesTransmittance();
+		G4double* GetPhotonWL();
+		G4double* GetPhotonEnergy();
+		G4double* GetTransmittance();
+		G4double* GetRIndex();
 
-  private:
-  void SetgAbs();
-  void SetgEm();
+		G4int GetNumEntries_ABS();
+		G4double* GetPhotonEnergy_ABS();
+		G4double* GetAbs();
 
-  void SethEm();
+		G4int GetNumEntries_EM();
+		G4double* GetPhotonEnergy_EM();
+		G4double* GetEm();
+
+	private:
+
+		void SetgAbs();
+		void SetgEm();
+
+		void SethEm();
 };
 
-#endif //WCSIM_WCSIMWLSPROPERTIES_HH
+#endif  // WCSIM_WCSIMWLSPROPERTIES_HH

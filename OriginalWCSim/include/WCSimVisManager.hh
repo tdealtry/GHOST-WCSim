@@ -1,26 +1,23 @@
 
 
-
 #ifndef WCSimVisManager_h
 #define WCSimVisManager_h 1
 
 #ifdef G4VIS_USE
 
-#include "G4VisManager.hh"
+	#include "G4VisManager.hh"
 
+class WCSimVisManager : public G4VisManager {
 
-class WCSimVisManager: public G4VisManager {
+	public:
 
-public:
+		WCSimVisManager();
 
-  WCSimVisManager ();
+	private:
 
-private:
-
-  void RegisterGraphicsSystems ();
-  void RegisterModelFactories ();
+		void RegisterGraphicsSystems();
+		void RegisterModelFactories();
 };
-
 
 #endif
 
