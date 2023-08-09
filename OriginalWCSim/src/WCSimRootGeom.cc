@@ -13,7 +13,8 @@
 #include <iostream>
 
 #ifndef REFLEX_DICTIONARY
-ClassImp(WCSimRootGeom) ClassImp(WCSimRootPMT)
+ClassImp(WCSimRootGeom)
+ClassImp(WCSimRootPMT)
 #endif
 
     //______________________________________________________________________________

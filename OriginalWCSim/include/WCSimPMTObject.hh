@@ -1,526 +1,500 @@
 #ifndef WCSimWCPMTObject_h
 #define WCSimWCPMTObject_h 1
 
-#include <TGraph.h>
-#include <map>
-#include <vector>
+#include "WCSimTuningParameters.hh"
+#include "WCSimDetectorConstruction.hh"
 #include "globals.hh"
 #include "Randomize.hh"
-#include "WCSimDetectorConstruction.hh"
-#include "WCSimTuningParameters.hh"
+#include <map>
+#include <vector>
+#include <TGraph.h>
 
-class WCSimPMTObject {
+class WCSimPMTObject
+{
 
-	public:
-
-		virtual G4String GetPMTName()       = 0;
-		virtual G4double GetExposeHeight()  = 0;
-		virtual G4double GetRadius()        = 0;
-		virtual G4double* Getqpe()          = 0;
-		virtual G4double* GetQE()           = 0;
-		virtual G4double* GetQEWavelength() = 0;
-		virtual G4double GetmaxQE()         = 0;
-		virtual G4double GetCollectionEfficiency(double);
-		virtual double HitTimeSmearing(double, double /*, double*/) = 0;
-		virtual double SaturFactor(double, double)                  = 0;  // TD 2019.07.16
-		virtual G4double GetPMTGlassThickness()                     = 0;
-		virtual G4double GetDarkRate()                              = 0;
-		virtual G4double GetDarkRateConversionFactor()              = 0;
-		virtual G4int GetNbOfQEDefined()                            = 0;
-
-	protected:
-
-		virtual G4double* GetCollectionEfficiencyArray();
-		virtual G4double* GetCollectionEfficiencyAngle();
-		G4double Interpolate_func(G4double, G4int, G4double*, G4double*);
+public:
+  virtual G4String GetPMTName()=0;
+  virtual G4double GetExposeHeight()=0;
+  virtual G4double GetRadius()=0;
+  virtual G4double* Getqpe()=0;
+  virtual G4double* GetQE()=0;
+  virtual G4double* GetQEWavelength()=0;
+  virtual G4double  GetmaxQE()=0;
+  virtual G4double  GetCollectionEfficiency(double);
+  virtual double    HitTimeSmearing(double, double /*, double*/)=0;
+  virtual double    SaturFactor(double, double)=0; //TD 2019.07.16
+  virtual G4double GetPMTGlassThickness()=0;
+  virtual G4double  GetDarkRate()=0;
+  virtual G4double  GetDarkRateConversionFactor()=0;
+  virtual G4int    GetNbOfQEDefined()=0;
+protected:
+  virtual G4double* GetCollectionEfficiencyArray();
+  virtual G4double* GetCollectionEfficiencyAngle();
+  G4double Interpolate_func(G4double, G4int, G4double*, G4double*);
 };
 
-class PMT20inch : public WCSimPMTObject {
+class PMT20inch : public WCSimPMTObject
+{
 
-	public:
-
-		PMT20inch();
-		~PMT20inch();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  
+  PMT20inch();
+  ~PMT20inch();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT8inch : public WCSimPMTObject {
+class PMT8inch : public WCSimPMTObject
+{
 
-	public:
-
-		PMT8inch();
-		~PMT8inch();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  
+  PMT8inch();
+  ~PMT8inch();
+ 
+public:
+  G4String GetPMTName(); 
+  G4double GetExposeHeight(); 
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT5inch : public WCSimPMTObject {
+class PMT5inch : public WCSimPMTObject
+{
 
-	public:
+public:
 
-		PMT5inch();
-		~PMT5inch();
+  PMT5inch();
+  ~PMT5inch();
 
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  G4String GetPMTName();
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT3inch : public WCSimPMTObject {
+class PMT3inch : public WCSimPMTObject
+{
 
-	public:
+public:
 
-		PMT3inch();
-		~PMT3inch();
+  PMT3inch();
+  ~PMT3inch();
 
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  G4String GetPMTName();
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT3inch_ETEL9302B : public WCSimPMTObject {
+class PMT3inch_ETEL9302B : public WCSimPMTObject
+{
 
-	public:
+public:
 
-		PMT3inch_ETEL9302B();
-		~PMT3inch_ETEL9302B();
+  PMT3inch_ETEL9302B();
+  ~PMT3inch_ETEL9302B();
 
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  G4String GetPMTName();
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT3inchGT : public WCSimPMTObject {
+class PMT3inchGT : public WCSimPMTObject
+{
 
-	public:
+public:
 
-		PMT3inchGT();
-		~PMT3inchGT();
+  PMT3inchGT();
+  ~PMT3inchGT();
 
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  G4String GetPMTName();
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
 };
 
-class PMT10inch : public WCSimPMTObject {
 
-	public:
+ class PMT10inch : public WCSimPMTObject
+{
 
-		PMT10inch();
-		~PMT10inch();
+public: 
+  PMT10inch();
+  ~PMT10inch();
+ 
+public:
+  G4String GetPMTName(); 
+  G4double GetExposeHeight(); 
+  G4double GetRadius(); 
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+ };
 
-	public:
+ class PMT10inchHQE : public WCSimPMTObject
+{
 
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public: 
+  PMT10inchHQE();
+  ~PMT10inchHQE();
+ 
+public:
+  G4String GetPMTName(); 
+  G4double GetExposeHeight(); 
+  G4double GetRadius(); 
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+ };
+
+ class PMT12inchHQE : public WCSimPMTObject
+{
+
+public: 
+  PMT12inchHQE();
+  ~PMT12inchHQE();
+ 
+public:
+  G4String GetPMTName(); 
+  G4double GetExposeHeight(); 
+  G4double GetRadius(); 
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+ };
+
+class HPD20inchHQE : public WCSimPMTObject
+{
+
+public:
+  
+  HPD20inchHQE();
+  ~HPD20inchHQE();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-class PMT10inchHQE : public WCSimPMTObject {
+class HPD12inchHQE : public WCSimPMTObject
+{
 
-	public:
-
-		PMT10inchHQE();
-		~PMT10inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  
+  HPD12inchHQE();
+  ~HPD12inchHQE();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-class PMT12inchHQE : public WCSimPMTObject {
+class BoxandLine20inchHQE : public WCSimPMTObject
+{
 
-	public:
-
-		PMT12inchHQE();
-		~PMT12inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+public:
+  
+  BoxandLine20inchHQE();
+  ~BoxandLine20inchHQE();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();                 //has to be double due to double math inside array ("narrowing conversion" error in C++11)
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-class HPD20inchHQE : public WCSimPMTObject {
+class BoxandLine12inchHQE : public WCSimPMTObject
+{
 
-	public:
-
-		HPD20inchHQE();
-		~HPD20inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
+public:
+  
+  BoxandLine12inchHQE();
+  ~BoxandLine12inchHQE();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-class HPD12inchHQE : public WCSimPMTObject {
 
-	public:
+// ToDo: make object of classes instead of infinite cp-pastes
+class PMT3inchR12199_02 : public WCSimPMTObject
+{
 
-		HPD12inchHQE();
-		~HPD12inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
+public:
+  
+  PMT3inchR12199_02();
+  ~PMT3inchR12199_02();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-class BoxandLine20inchHQE : public WCSimPMTObject {
+//B.Q, 2019/01/18
+// ToDo: make object of classes instead of infinite cp-pastes
+class PMT3inchR14374 : public WCSimPMTObject
+{
 
-	public:
-
-		BoxandLine20inchHQE();
-		~BoxandLine20inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();  // has to be double due to double math inside array ("narrowing conversion" error
-		                    // in C++11)
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
-};
-
-class BoxandLine12inchHQE : public WCSimPMTObject {
-
-	public:
-
-		BoxandLine12inchHQE();
-		~BoxandLine12inchHQE();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
+public:
+  
+  PMT3inchR14374();
+  ~PMT3inchR14374();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
 // ToDo: make object of classes instead of infinite cp-pastes
-class PMT3inchR12199_02 : public WCSimPMTObject {
+class PMT4inchR12199_02 : public WCSimPMTObject
+{
 
-	public:
-
-		PMT3inchR12199_02();
-		~PMT3inchR12199_02();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
-};
-
-// B.Q, 2019/01/18
-//  ToDo: make object of classes instead of infinite cp-pastes
-class PMT3inchR14374 : public WCSimPMTObject {
-
-	public:
-
-		PMT3inchR14374();
-		~PMT3inchR14374();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
+public:
+  
+  PMT4inchR12199_02();
+  ~PMT4inchR12199_02();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
 // ToDo: make object of classes instead of infinite cp-pastes
-class PMT4inchR12199_02 : public WCSimPMTObject {
+class PMT5inchR12199_02 : public WCSimPMTObject
+{
 
-	public:
-
-		PMT4inchR12199_02();
-		~PMT4inchR12199_02();
-
-	public:
-
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
-
-	protected:
-
-		G4double* GetCollectionEfficiencyArray();
+public:
+  
+  PMT5inchR12199_02();
+  ~PMT5inchR12199_02();
+ 
+public:
+  G4String GetPMTName() ;
+  G4double GetExposeHeight();
+  G4double GetRadius();
+  G4double* Getqpe();
+  G4double* GetQE();
+  G4double* GetQEWavelength();
+  G4double  GetmaxQE();
+  double    HitTimeSmearing(double, double);
+  double    SaturFactor(double, double); //TD 2019.07.16
+  G4double GetPMTGlassThickness();
+  G4double  GetDarkRate();
+  G4double  GetDarkRateConversionFactor();
+  G4int    GetNbOfQEDefined();
+protected:
+  G4double* GetCollectionEfficiencyArray();
 };
 
-// ToDo: make object of classes instead of infinite cp-pastes
-class PMT5inchR12199_02 : public WCSimPMTObject {
 
-	public:
+class WCSimBasicPMTObject
+{
 
-		PMT5inchR12199_02();
-		~PMT5inchR12199_02();
+ public:
+  WCSimBasicPMTObject();
+  WCSimBasicPMTObject(std::map<G4double,G4double>);
+  WCSimBasicPMTObject(std::vector<G4double>,std::vector<G4double>,G4double);
+  ~WCSimBasicPMTObject();
 
-	public:
+ private:
+  std::vector<G4double> QE;
+  std::vector<G4double> wavelength;
+  std::map<G4double,G4double> mapQE;
+  G4double  maxQE;
+  TGraph   *gQE = nullptr;
 
-		G4String GetPMTName();
-		G4double GetExposeHeight();
-		G4double GetRadius();
-		G4double* Getqpe();
-		G4double* GetQE();
-		G4double* GetQEWavelength();
-		G4double GetmaxQE();
-		double HitTimeSmearing(double, double);
-		double SaturFactor(double, double);  // TD 2019.07.16
-		G4double GetPMTGlassThickness();
-		G4double GetDarkRate();
-		G4double GetDarkRateConversionFactor();
-		G4int GetNbOfQEDefined();
+ public:
+  std::vector<G4double> GetQE(){ return QE;};
+  void SetQE(std::vector<G4double> qe){ QE=qe;};
 
-	protected:
+  std::vector<G4double> GetWavelength(){ return wavelength;};
+  void SetWavelength(std::vector<G4double> qe){ wavelength=qe;};
 
-		G4double* GetCollectionEfficiencyArray();
-};
+  std::map<G4double,G4double> GetMapQE(){ return mapQE;};
+  void SetMapQE(std::map<G4double,G4double> qe){ mapQE=qe;};
 
-class WCSimBasicPMTObject {
+  G4double GetmaxQE(){ return maxQE;};
+  void SetmaxQE(G4double qe){ maxQE=qe;};
 
-	public:
+  TGraph* GetgQE(){ return gQE;};
+  void SetgQE(TGraph *graph){ gQE=graph;};
 
-		WCSimBasicPMTObject();
-		WCSimBasicPMTObject(std::map<G4double, G4double>);
-		WCSimBasicPMTObject(std::vector<G4double>, std::vector<G4double>, G4double);
-		~WCSimBasicPMTObject();
-
-	private:
-
-		std::vector<G4double> QE;
-		std::vector<G4double> wavelength;
-		std::map<G4double, G4double> mapQE;
-		G4double maxQE;
-		TGraph* gQE = nullptr;
-
-	public:
-
-		std::vector<G4double> GetQE() { return QE; };
-
-		void SetQE(std::vector<G4double> qe) { QE = qe; };
-
-		std::vector<G4double> GetWavelength() { return wavelength; };
-
-		void SetWavelength(std::vector<G4double> qe) { wavelength = qe; };
-
-		std::map<G4double, G4double> GetMapQE() { return mapQE; };
-
-		void SetMapQE(std::map<G4double, G4double> qe) { mapQE = qe; };
-
-		G4double GetmaxQE() { return maxQE; };
-
-		void SetmaxQE(G4double qe) { maxQE = qe; };
-
-		TGraph* GetgQE() { return gQE; };
-
-		void SetgQE(TGraph* graph) { gQE = graph; };
-
-		void DefineQEHist(std::map<G4double, G4double>);
+  void DefineQEHist(std::map<G4double,G4double>);
 };
 
 #endif
