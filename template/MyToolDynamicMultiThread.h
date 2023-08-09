@@ -30,8 +30,8 @@ struct MyToolDynamicMultiThread_args : Thread_args {
  * This is a template for a Tool that dynamically more or less threads, such that there is always 1 available
  * thread. This can therefore be used to scale to your workload, however be careful when using more than one
  * of these tools and to apply upper limits if necessary both locally within this tool and globally so that
- * more threads than is practical are created causing massive inefficiency. Please fill out the description and
- * author information.
+ * more threads than is practical are created causing massive inefficiency. Please fill out the description
+ * and author information.
  *
  * $Author: B.Richards $
  * $Date: 2019/05/28 10:44:00 $

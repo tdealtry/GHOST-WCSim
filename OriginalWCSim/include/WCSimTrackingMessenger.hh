@@ -1,7 +1,6 @@
 #ifndef WCSimTrackingMessenger_h
 #define WCSimTrackingMessenger_h 1
 
-
 #include "G4UImessenger.hh"
 
 class G4UIcommand;
@@ -11,22 +10,23 @@ class G4UIcmdWithAnInteger;
 class G4UIcmdWithAString;
 class WCSimTrackingAction;
 
-class WCSimTrackingMessenger: public G4UImessenger
-{
-public:
-  WCSimTrackingMessenger(WCSimTrackingAction*);
+class WCSimTrackingMessenger : public G4UImessenger {
+	public:
 
-  ~WCSimTrackingMessenger();
+		WCSimTrackingMessenger(WCSimTrackingAction*);
 
-  void SetNewValue(G4UIcommand* command, G4String newValue);
+		~WCSimTrackingMessenger();
 
-private:
-  WCSimTrackingAction* myTracking;
+		void SetNewValue(G4UIcommand* command, G4String newValue);
 
-  G4UIdirectory* WCSimDir;
-  G4UIcmdWithADouble* fractionPhotonsToDraw;
-  G4UIcmdWithAnInteger* particleToTrack;
-  G4UIcmdWithAString* processToTrack;
+	private:
+
+		WCSimTrackingAction* myTracking;
+
+		G4UIdirectory* WCSimDir;
+		G4UIcmdWithADouble* fractionPhotonsToDraw;
+		G4UIcmdWithAnInteger* particleToTrack;
+		G4UIcmdWithAString* processToTrack;
 };
 
 #endif
