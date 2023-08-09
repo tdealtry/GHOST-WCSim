@@ -40,5 +40,6 @@ jobs:
         mkdir -p /opt/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         ls
         ln -s $PWD/OriginalWCSim_build/ /opt/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
+        sed -i 's!gray!grey!' /usr/local/hk/ToolFrameworkCore/src/src/Logging/Logging.h
         export WCSIMDIR=$PWD/OriginalWCSim/
         make
