@@ -2,7 +2,8 @@ ToolFrameworkPath =  /usr/local/hk/ToolFrameworkCore/src
 DataModelPath = /usr/local/hk/hk-ToolApp/hk-DataModel/
 
 Geant4Path = /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/
-WCSimPath = /opt/WCSim/install/
+#WCSimPath = /opt/WCSim/install/
+WCSimPath = /opt/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/
 RootPath = /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/
 
 ROOT_INCLUDES  = -I$(shell root-config --incdir)
