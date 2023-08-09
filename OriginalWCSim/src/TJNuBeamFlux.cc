@@ -105,5 +105,4 @@ void JNuBeamFlux::Reset() {
 }
 //_______________________________________________________________________________________
 
-ClassImp(RooTrackerVtxBase)
-ClassImp(JNuBeamFlux)
+ClassImp(RooTrackerVtxBase) ClassImp(JNuBeamFlux)
