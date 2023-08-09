@@ -5,6 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container: ghcr.io/hyperk/clang_format:latest
     steps:
     - uses: actions/checkout@v2
@@ -13,8 +15,6 @@ jobs:
     - name: format
       run: git clone https://github.com/hyperk/hk-ClangFormat.git && cd hk-ClangFormat && ./run.sh && cd .. && rm -rf hk-ClangFormat  
     - uses: EndBug/add-and-commit@v9
-      permissions:
-        contents: write
       with:
         author_name: Clang Robot
         author_email: robot@example.com
