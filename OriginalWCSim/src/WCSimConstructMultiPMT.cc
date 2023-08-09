@@ -343,7 +343,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructMultiPMT(G4String PMTName,
 			logic_mPMT_container = new G4LogicalVolume(
 			    mPMT_top_cap_container,
 			    G4Material::GetMaterial(mPMT_inner_material),  //"SilGel"), //whole area between pressure
-			                                                   //vessel and support structure is optical gel!
+			                                                   // vessel and support structure is optical gel!
 			    "WCMultiPMT_container",
 			    0,
 			    0,
@@ -372,7 +372,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructMultiPMT(G4String PMTName,
 			logic_mPMT_container = new G4LogicalVolume(
 			    union_container,
 			    G4Material::GetMaterial(mPMT_inner_material),  //"SilGel"), //whole area between pressure
-			                                                   //vessel and support structure is optical gel!
+			                                                   // vessel and support structure is optical gel!
 			    "WCMultiPMT_container",
 			    0,
 			    0,
@@ -385,7 +385,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructMultiPMT(G4String PMTName,
 			logic_mPMT_container = new G4LogicalVolume(
 			    mPMT_top_sphere_container,
 			    G4Material::GetMaterial(mPMT_inner_material),  //"SilGel"), //whole area between pressure
-			                                                   //vessel and support structure is optical gel!
+			                                                   // vessel and support structure is optical gel!
 			    "WCMultiPMT_container",
 			    0,
 			    0,
@@ -409,7 +409,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructMultiPMT(G4String PMTName,
 			logic_mPMT_container = new G4LogicalVolume(
 			    union_container,
 			    G4Material::GetMaterial(mPMT_inner_material),  //"SilGel"), //whole area between pressure
-			                                                   //vessel and support structure is optical gel!
+			                                                   // vessel and support structure is optical gel!
 			    "WCMultiPMT_container",
 			    0,
 			    0,

@@ -588,9 +588,8 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCylinder() {
 		                                                      barrelCellHeight);
 
 		G4VisAttributes* tmpVisAtt = new G4VisAttributes(G4Colour(1., 0.5, 0.5));
-		tmpVisAtt->SetForceSolid(
-		    true);  // This line is used to give definition to the cells in OGLSX Visualizer
-		            // logicWCExtraTowerCell->SetVisAttributes(tmpVisAtt);
+		tmpVisAtt->SetForceSolid(true);  // This line is used to give definition to the cells in OGLSX
+		                                 // Visualizer logicWCExtraTowerCell->SetVisAttributes(tmpVisAtt);
 		logicWCExtraTowerCell->SetVisAttributes(G4VisAttributes::Invisible);
 		// TF vis.
 
@@ -984,7 +983,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCylinder() {
 					                  towerWidth / 2. - (i + 0.5) * horizontalSpacingExtra,
 					                  -barrelCellHeight / 2. + (j + 0.5) * verticalSpacing);
 					PMTPosition.rotateZ(-(2 * pi - totalAngle) / 2.);  // align with the symmetry
-					// axes of the cell
+					                                                   // axes of the cell
 
 					// G4cout << "Adding PMT in extra tower " << i << ", " << j << " position: " <<
 					// PMTPosition << G4endl;
@@ -1295,7 +1294,8 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCylinder() {
 				                      (j + 0.5) * verticalODSpacing);
 
 				//		G4cout << " qqqqqqqqqqqqqqqqqqqqqqqq barrel i " << i << " of " <<
-				//WCPMTODperCellHorizontal << " j " << j << " of " << WCPMTODperCellVertical << " Container ("
+				// WCPMTODperCellHorizontal << " j " << j << " of " << WCPMTODperCellVertical << " Container
+				// ("
 				//<< Container.x() << ", " << Container.y()
 				//				  << ", " << Container.z() << ") " << G4endl;
 
@@ -1580,9 +1580,8 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCaps(G4bool flipz) {
 	if(!debugMode) {
 
 		tmpVisAtt = new G4VisAttributes(G4Colour(1., 0.5, 0.5));
-		tmpVisAtt->SetForceSolid(
-		    true);  // This line is used to give definition to the cells in OGLSX Visualizer
-		            // logicWCBarrelBorderRing->SetVisAttributes(tmpVisAtt);
+		tmpVisAtt->SetForceSolid(true);  // This line is used to give definition to the cells in OGLSX
+		                                 // Visualizer logicWCBarrelBorderRing->SetVisAttributes(tmpVisAtt);
 		logicWCBarrelBorderRing->SetVisAttributes(G4VisAttributes::Invisible);
 		// TF vis.
 	}
@@ -2074,7 +2073,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCaps(G4bool flipz) {
 		G4cout << "Debug B.Q, wccap edge = " << WCCapEdgeLimit << ", spacing = " << WCCapPMTSpacing
 		       << ", CapNCell = " << CapNCell << ", PMT radius = " << WCPMTRadius << G4endl;
 		//		  G4cout << "Debug B.Q, test = " << ((horizontalModulo == verticalModulo) && hybrid &&
-		//WCPMTPercentCoverage2!=0) << G4endl;
+		// WCPMTPercentCoverage2!=0) << G4endl;
 #endif
 		for(int i = -CapNCell; i < CapNCell; i++) {
 			for(int j = -CapNCell; j < CapNCell; j++) {
@@ -2106,8 +2105,9 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCaps(G4bool flipz) {
 					// G4cout << "Debug B.Q, xoffset = " << xoffset << ", yoffset = " << yoffset << ",
 					// distance = " << dcenter  << G4endl; G4cout << "Debug B.Q, xoffset = " << xoffset << ",
 					// yoffset = " << yoffset << ", CapNCell = " << CapNCell << ", spacing = " <<
-					// WCCapPMTSpacing << G4endl; 		  G4cout << "Debug B.Q, test = " << ((horizontalModulo ==
-					//verticalModulo) && hybrid && WCPMTPercentCoverage2!=0) << G4endl;
+					// WCCapPMTSpacing << G4endl; 		  G4cout << "Debug B.Q, test = " << ((horizontalModulo
+					// ==
+					// verticalModulo) && hybrid && WCPMTPercentCoverage2!=0) << G4endl;
 #endif
 #ifdef ACTIVATE_IDPMTS
 					// G4cout << "Adding PMT on cap cell " << i << ", " << j << G4endl;
@@ -2130,7 +2130,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCaps(G4bool flipz) {
 					// this is still the case.
 
 					//						((i%WCPMTperCellHorizontal == j%WCPMTperCellVertical) &&
-					//hybrid)?logicWCPMT2:logicWCPMT,            // its logical volume
+					// hybrid)?logicWCPMT2:logicWCPMT,            // its logical volume
 
 					icopy++;
 				}
@@ -2218,7 +2218,7 @@ G4LogicalVolume* WCSimDetectorConstruction::ConstructCaps(G4bool flipz) {
 					                  towerWidth / 2. - (i + 0.5) * horizontalSpacingExtra,
 					                  (-(barrelCellHeight / 2.) + (j + 0.5) * verticalSpacing) * zflip);
 					PMTPosition.rotateZ(-(2 * pi - totalAngle) / 2.);  // align with the symmetry
-					// axes of the cell
+					                                                   // axes of the cell
 #ifdef ACTIVATE_IDPMTS
 	#ifdef WCSIMCONSTRUCTCYLINDER_VERBOSE
 					G4cout << "Add PMTs in extra tower, cell " << i << ", " << j << G4endl;

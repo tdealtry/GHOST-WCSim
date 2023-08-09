@@ -627,10 +627,10 @@ void WCSimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 		int nInjectorsPerLayer = 4;  // 4 injectors per layer
 		int nCapInjectors      = 4;  // 4 injectors each the top and bottom endcap
 
-		int nPhotonsPerInjectors = nPhotons;                // number of photons per event
-		double photoEnergy = 1239.84193 / wavelength * eV;  // wavelength in nm, Planck constant in (eV)(nm)
-		int injectorOn     = injectorOnIdx;                 // index of the injector to be turned on
-		int nInjector      = -1;
+		int nPhotonsPerInjectors = nPhotons;                  // number of photons per event
+		double photoEnergy   = 1239.84193 / wavelength * eV;  // wavelength in nm, Planck constant in (eV)(nm)
+		int injectorOn       = injectorOnIdx;                 // index of the injector to be turned on
+		int nInjector        = -1;
 		double injectorangle = openangle;  // injector opening angle
 
 		for(int i = 0; i < nLayerInjectors; i++) {
@@ -1145,7 +1145,7 @@ void WCSimPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent) {
 			}
 
 			//	G4cout << " is " << IsotopeName << " of " << radioactive_sources.size() << " loc " <<
-			//IsotopeLocation << " a " << IsotopeActivity << " nv " << n_vertices << G4endl;
+			// IsotopeLocation << " a " << IsotopeActivity << " nv " << n_vertices << G4endl;
 		}
 
 		G4int number_of_sources = MyGPS->GetNumberofSource();

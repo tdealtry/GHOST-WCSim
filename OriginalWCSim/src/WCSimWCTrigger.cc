@@ -422,7 +422,7 @@ void WCSimWCTriggerBase::FillDigitsCollection(WCSimWCDigitsCollection* WCDCPMT,
 			if(upperbound_previous > lowerbound) {
 				// also need to check whether the previous upperbound is above the lowerbound
 				//(different trigger windows for different trigger types can mean this trigger is completely
-				//contained within another)
+				// contained within another)
 				//  if it is, we skip it
 				if(upperbound_previous >= upperbound)
 					continue;
@@ -675,7 +675,7 @@ WCSimWCTriggerNDigits2::~WCSimWCTriggerNDigits2() {}
 void WCSimWCTriggerNDigits2::DoTheWork(WCSimWCDigitsCollection* WCDCPMT) {
 	// This calls 2 trigger algorithms; the second algorithm is called on hits that failed the first algorithm
 	//(for a second trigger working on hits that passed a pretrigger, FillDigitsCollection() needs to have a
-	//new option)
+	// new option)
 
 	// Make a copy of the input DigitsCollection, so we can remove hits from the copy
 	WCSimWCDigitsCollection* WCDCPMTCopy = new WCSimWCDigitsCollection(*WCDCPMT);

@@ -8037,7 +8037,7 @@ G4String PMT3inchR12199_02::GetPMTName() {
 G4double PMT3inchR12199_02::GetExposeHeight() {
 	return 0.02 * m;
 }  //.0153*m;} //.0200*m;}  //from TechSheet for 3in (only photocathode would be 15.3mm h, for a radius as
-   //photocathode of 36 mm)
+   // photocathode of 36 mm)
 
 G4double PMT3inchR12199_02::GetRadius() {
 	return 0.04 * m;
@@ -9937,7 +9937,7 @@ G4String PMT3inchR14374::GetPMTName() {
 G4double PMT3inchR14374::GetExposeHeight() {
 	return 0.02 * m;
 }  //.0153*m;} //.0200*m;}  //from TechSheet for 3in (only photocathode would be 15.3mm h, for a radius as
-   //photocathode of 36 mm)
+   // photocathode of 36 mm)
 
 G4double PMT3inchR14374::GetRadius() {
 	return 0.04 * m;

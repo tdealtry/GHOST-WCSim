@@ -1318,7 +1318,7 @@ void WCSimEventAction::FillRootEvent(G4int event_id,
 				stop[l]  = Stop[l] / cm;     // stopping point
 				start[l] = Start[l] / cm;    // starting point
 				                             // G4cout<<"part 2 start["<<l<<"]: "<< start[l] <<G4endl;
-				// G4cout<<"part 2 stop["<<l<<"]: "<< stop[l] <<G4endl;
+				                             // G4cout<<"part 2 stop["<<l<<"]: "<< stop[l] <<G4endl;
 			}
 
 			// Add the track to the TClonesArray, watching out for times
@@ -1833,7 +1833,7 @@ void WCSimEventAction::FillRootEventHybrid(G4int event_id,
 				stop[l]  = Stop[l] / cm;     // stopping point
 				start[l] = Start[l] / cm;    // starting point
 				                             // G4cout<<"part 2 start["<<l<<"]: "<< start[l] <<G4endl;
-				// G4cout<<"part 2 stop["<<l<<"]: "<< stop[l] <<G4endl;
+				                             // G4cout<<"part 2 stop["<<l<<"]: "<< stop[l] <<G4endl;
 			}
 
 			// Add the track to the TClonesArray, watching out for times
@@ -2503,13 +2503,13 @@ void WCSimEventAction::FillFlatTree(G4int event_id,
 						thisNtuple->digimPMTid[countdigihits] = tubeID / nMpmtID_pmts;
 						thisNtuple->digimPMT_pmtid[countdigihits] =
 						    (tubeID % nMpmtID_pmts == 0 ? nMpmtID_pmts :
-						                                  tubeID % nMpmtID_pmts);   // No. 1 to nID
-						thisNtuple->digitube_x[countdigihits] = pmt->Get_transx();  // already in CLHEP::cm
-						thisNtuple->digitube_y[countdigihits] = pmt->Get_transy();
-						thisNtuple->digitube_z[countdigihits] = pmt->Get_transz();
-						thisNtuple->digitube_dirx[countdigihits]    = pmt->Get_orienx();
-						thisNtuple->digitube_diry[countdigihits]    = pmt->Get_orieny();
-						thisNtuple->digitube_dirz[countdigihits]    = pmt->Get_orienz();
+						                                  tubeID % nMpmtID_pmts);      // No. 1 to nID
+						thisNtuple->digitube_x[countdigihits]    = pmt->Get_transx();  // already in CLHEP::cm
+						thisNtuple->digitube_y[countdigihits]    = pmt->Get_transy();
+						thisNtuple->digitube_z[countdigihits]    = pmt->Get_transz();
+						thisNtuple->digitube_dirx[countdigihits] = pmt->Get_orienx();
+						thisNtuple->digitube_diry[countdigihits] = pmt->Get_orieny();
+						thisNtuple->digitube_dirz[countdigihits] = pmt->Get_orienz();
 						thisNtuple->digivector_index[countdigihits] = iv;
 						thisNtuple->q[countdigihits]                = vec_pe[iv];
 						thisNtuple->t[countdigihits]                = vec_time[iv];

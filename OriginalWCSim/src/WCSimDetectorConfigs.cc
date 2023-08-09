@@ -1584,8 +1584,8 @@ void WCSimDetectorConstruction::Cylinder_60x74_3inchmPMT_14perCent() {
 	// and use the same number of mPMT modules as 20in PMTs, so use same settings.
 	// Most important one is WCBarrelNumPMTHorizontal
 	// WCBarrelPMTOffset does not change total No. of modules, so use actual outer_module_radius.
-	WCIDDiameter = 74.0 * m;
-	WCIDHeight   = 60.0 * m;
+	WCIDDiameter      = 74.0 * m;
+	WCIDHeight        = 60.0 * m;
 	WCBarrelPMTOffset = mPMT_vessel_tot_height;  // mPMT cylinder Radius //WCPMTRadius; //offset from vertical
 	WCPMTperCellHorizontal   = 4;
 	WCPMTperCellVertical     = 3;
@@ -1638,8 +1638,8 @@ void WCSimDetectorConstruction::Cylinder_60x74_3inchmPMT_40perCent() {
 	nID_PMTs    = 34;
 	config_file = wcsimdir_path + "/mPMT-configfiles/mPMTconfig_34_22.5_2.txt";
 
-	WCIDDiameter = 74.0 * m;
-	WCIDHeight   = 60.0 * m;
+	WCIDDiameter      = 74.0 * m;
+	WCIDHeight        = 60.0 * m;
 	WCBarrelPMTOffset = mPMT_vessel_tot_height;  // mPMT cylinder Radius //WCPMTRadius; //offset from vertical
 	WCPMTperCellHorizontal = 4;
 	WCPMTperCellVertical   = 3;

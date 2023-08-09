@@ -232,7 +232,7 @@ void WCSimWCDigitizerSKI::DigitizeHits(WCSimWCDigitsCollection* WCHCPMT) {
 #endif
 
 	//*********************************************************************************************************
-	//TD 2019.07.16 : to take PMT saturation effect into account *********************
+	// TD 2019.07.16 : to take PMT saturation effect into account *********************
 	double saturThreshold = myDetector->GetParameters()->GetPMTSatur();
 	// double qoiff = myDetector->GetParameters()->GetQoiff();
 
@@ -357,7 +357,8 @@ void WCSimWCDigitizerSKI::DigitizeHits(WCSimWCDigitsCollection* WCHCPMT) {
 					peSmeared *= efficiency;
 
 					//********************************************************************************************************
-					//TD 2019.07.16 : to take PMT saturation effect into account ********************* file <<
+					// TD 2019.07.16 : to take PMT saturation effect into account ********************* file
+					// <<
 					// peSmeared << " ";
 					peSmeared *= PMT->SaturFactor(peSmeared, saturThreshold);
 					// file << peSmeared << "\n";
@@ -446,7 +447,7 @@ void WCSimWCDigitizerSKI::DigitizeHits(WCSimWCDigitsCollection* WCHCPMT) {
 	       << " digits" << G4endl;
 #endif
 	//********************************************************************************************************
-	//TD 2019.07.16 : to take PMT saturation effect into account ********************* file.close();
+	// TD 2019.07.16 : to take PMT saturation effect into account ********************* file.close();
 	//*****************************************************************************************************************************************************************************************
 
 #ifdef WCSIMWCDIGITIZER_VERBOSE
