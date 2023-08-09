@@ -307,8 +307,3 @@
 ## set a timer running on WCSimRunAction
 #/WCSimIO/Timer false
 
-##################
-# NUMBER OF EVENTS TO RUN
-##################
-/run/beamOn 10
-#exit

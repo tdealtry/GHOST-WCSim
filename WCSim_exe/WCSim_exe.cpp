@@ -1,7 +1,5 @@
 #include "WCSim_exe.h"
 
-#include "G4UImanager.hh"
-
 #include "WCSimTuningParameters.hh"
 #include "WCSimRandomParameters.hh"
 #include "WCSimDetectorConstruction.hh"
@@ -67,6 +65,9 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	m_data = &data;
 	m_log  = m_data->Log;
 
+	///////////
+	// GET ALL THE PARAMETERS FROM THE CONFIG FILE
+	///////////
 	if(!m_variables.Get("verbose", m_verbose))
 		m_verbose = 1;
 
@@ -76,17 +77,29 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	std::string wcsim_mac_tuning_filename = GetConfigFilename("wcsim_mac_tuning_filename", (wcsim_dir + "/macros/tuning_parameters.mac").c_str());
 	std::string wcsim_mac_filename = GetConfigFilename("wcsim_mac_filename", (wcsim_dir + "/WCSim.mac").c_str());
 
+	//get the number of events
+	if(!m_variables.Get("number_of_events", m_number_of_events)) {
+		std::cout << "number_of_events not found in config file. Just simulating 1 event" << std::endl;
+		m_number_of_events = 1;
+	}
+	//initialise the current event number
+	m_current_event = 0;
+	
+	///////////
+	// SETUP GEANT4
+	///////////
+	
 	// Construct the default run manager
   m_p_run_manager = new G4RunManager;
 
   // get the pointer to the UI manager
-  G4UImanager* UI = G4UImanager::GetUIpointer();
+  m_p_UI = G4UImanager::GetUIpointer();
 
   // Set up the tuning parameters that need to be read before the detector
   //  construction is done
   WCSimTuningParameters* tuningpars = new WCSimTuningParameters();
 	std::cout << "Processing tuning parameter file " << wcsim_mac_tuning_filename << std::endl;
-	UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
+	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
 
 	  // define random number generator parameters
   WCSimRandomParameters *randomparameters = new WCSimRandomParameters();
@@ -104,7 +117,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
   // Set up the messenger hooks here, initialize the actual list after loading jobOptions.mac
   WCSimPhysicsListFactory *physFactory = new WCSimPhysicsListFactory();
 
-	UI->ApplyCommand("/control/execute " + wcsim_mac_job_opt_filename);
+	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_job_opt_filename);
 
   // Initialize the physics factory to register the selected physics.
   physFactory->InitializeList();
@@ -135,15 +148,20 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
   // Initialize G4 kernel
   m_p_run_manager->Initialize();
 
-	UI->ApplyCommand("/control/execute " + wcsim_mac_filename);
+	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_filename);
 	return true;
 }
 
 bool WCSim_exe::Execute() {
-
-	
+	if(m_current_event < m_number_of_events) {
+		m_p_UI->ApplyCommand("/run/beamOn 1");
+	}
+	m_current_event++;
+	if(m_current_event >= m_number_of_events)
+		m_data->vars.Set("StopLoop",1);
 	return true;
 }
+
 
 bool WCSim_exe::Finalise() {
 	delete m_p_run_manager;

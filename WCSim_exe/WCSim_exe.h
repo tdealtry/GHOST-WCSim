@@ -6,6 +6,7 @@
 
 #include "Tool.h"
 
+#include "G4UImanager.hh"
 #include "G4RunManager.hh"
 
 /**
@@ -44,6 +45,9 @@ class WCSim_exe : public Tool {
 																const char * default_filename);
 
 	G4RunManager * m_p_run_manager;
+	G4UImanager  * m_p_UI;
+	long m_number_of_events;
+	long m_current_event;
 };
 
 		namespace utils {
