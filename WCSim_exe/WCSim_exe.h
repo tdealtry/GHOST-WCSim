@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+#include <DataModel.h>
 #include "Tool.h"
 
 #include "G4RunManager.hh"
