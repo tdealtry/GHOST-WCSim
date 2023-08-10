@@ -63,6 +63,8 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	m_data = &data;
 	m_log  = m_data->Log;
 
+	std::cout << m_data->test << std::endl;
+
 	///////////
 	// GET ALL THE PARAMETERS FROM THE CONFIG FILE
 	///////////
