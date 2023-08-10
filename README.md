@@ -2,7 +2,7 @@
 
 ## Current installation instructions
 
-From `docker run ghcr.io/hyperk/hk-software`
+From `docker run -it ghcr.io/hyperk/hk-software`
 ```bash
 #Clone hk-ToolApp and associated modules
 git clone https://github.com/tdealtry/hk-ToolApp.git
