@@ -65,3 +65,24 @@ ln -s $WCSIMDIR/macros/
 #Test
 ./main ghost
 ```
+
+
+## Testing DataModel
+If I add something to `DataModel.h` in hk-DataModel, GHOST-WCSim doesn't see it.
+
+It instead picks up `DataModel.h` from ToolFrameworkCore
+```bash
+#add test variable to the DataModel
+cd /usr/local/hk/hk-ToolApp/hk-DataModel
+git remote add tom https://github.com/tdealtry/hk-DataModel.git
+git fetch tom
+git switch test
+make clean
+make
+
+#add access of test variable to GHOST-WCSim's WCSim_exe tool
+cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
+git switch test
+make clean
+make
+```
