@@ -37,8 +37,9 @@ jobs:
         source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
         source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
         source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh
-        mkdir -p /opt/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
+        pwd
         ls
-        ln -s $PWD/OriginalWCSim_build/ /opt/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
+        mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
+        ln -s $PWD/OriginalWCSim_build/ /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         export WCSIMDIR=$PWD/OriginalWCSim/
         make
