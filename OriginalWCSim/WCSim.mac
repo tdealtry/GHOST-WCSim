@@ -195,7 +195,7 @@
 #/control/execute macros/visRayTracer.mac
 #/control/execute macros/visOGLQt.mac
 
-/Tracking/fractionOpticalPhotonsToDraw 0.0
+#/Tracking/fractionOpticalPhotonsToDraw 0.0
 
 ##################
 # PHYSICS

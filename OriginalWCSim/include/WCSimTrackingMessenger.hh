@@ -24,7 +24,6 @@ class WCSimTrackingMessenger : public G4UImessenger {
 		WCSimTrackingAction* myTracking;
 
 		G4UIdirectory* WCSimDir;
-		G4UIcmdWithADouble* fractionPhotonsToDraw;
 		G4UIcmdWithAnInteger* particleToTrack;
 		G4UIcmdWithAString* processToTrack;
 };
