@@ -91,7 +91,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	///////////
 
 	// Construct the default run manager
-	m_p_run_manager = new G4RunManager;
+	m_data->m_p_g4_run_manager = unique_ptr<G4RunManager>(new G4RunManager);
 
 	// get the pointer to the UI manager
 	m_p_UI = G4UImanager::GetUIpointer();
@@ -112,7 +112,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	WCSimDetectorConstruction* WCSimdetector = new WCSimDetectorConstruction(WCSimConfiguration, tuningpars);
 
-	m_p_run_manager->SetUserInitialization(WCSimdetector);
+	m_data->m_p_g4_run_manager->SetUserInitialization(WCSimdetector);
 
 	// Added selectable physics lists 2010-07 by DMW
 	// Set up the messenger hooks here, initialize the actual list after loading jobOptions.mac
@@ -122,11 +122,11 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	// Initialize the physics factory to register the selected physics.
 	physFactory->InitializeList();
-	m_p_run_manager->SetUserInitialization(physFactory);
+	m_data->m_p_g4_run_manager->SetUserInitialization(physFactory);
 
 	// Set user action classes
 	WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(WCSimdetector);
-	m_p_run_manager->SetUserAction(myGeneratorAction);
+	m_data->m_p_g4_run_manager->SetUserAction(myGeneratorAction);
 
 	WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
 
@@ -135,17 +135,17 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());
 	physFactory->SaveOptionsToOutput(myRunAction->GetRootOptions());
 
-	m_p_run_manager->SetUserAction(myRunAction);
+	m_data->m_p_g4_run_manager->SetUserAction(myRunAction);
 
-	m_p_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
-	m_p_run_manager->SetUserAction(new WCSimTrackingAction);
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
+	//m_data->m_p_g4_run_manager->SetUserAction(new WCSimTrackingAction);
 
-	m_p_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
 
-	m_p_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, WCSimdetector));
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, WCSimdetector));
 
 	// Initialize G4 kernel
-	m_p_run_manager->Initialize();
+	m_data->m_p_g4_run_manager->Initialize();
 
 	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_filename);
 	return true;
@@ -162,7 +162,6 @@ bool WCSim_exe::Execute() {
 }
 
 bool WCSim_exe::Finalise() {
-	delete m_p_run_manager;
 
 	return true;
 }
