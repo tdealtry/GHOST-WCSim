@@ -8,7 +8,6 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 class G4Track;
-class WCSimTrackingMessenger;
 
 class WCSimTrackingAction : public G4UserTrackingAction {
 	public:
@@ -36,7 +35,6 @@ class WCSimTrackingAction : public G4UserTrackingAction {
 		// TF: define in macro now
 		G4double percentageOfCherenkovPhotonsToDraw;
 
-		WCSimTrackingMessenger* messenger;
 };
 
 #endif
