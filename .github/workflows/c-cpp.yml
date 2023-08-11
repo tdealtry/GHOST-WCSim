@@ -36,7 +36,7 @@ jobs:
         cmake ../OriginalWCSim
         make
         make install
-        echo source /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/this_wcsim.sh >> setup.sh
+        echo source /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/this_wcsim.sh >> /usr/local/hk/setup.sh
     - name: build hk-datamodel
       run: |
         ls /usr/local/hk/
