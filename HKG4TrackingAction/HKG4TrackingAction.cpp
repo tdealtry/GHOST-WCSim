@@ -2,23 +2,24 @@
 
 #include "G4OpticalPhoton.hh"
 
-#include "WCSimTrajectory.hh"
 #include "WCSimTrackInformation.hh"
+#include "WCSimTrajectory.hh"
 
 using namespace HK::GHOST::G4;
 
 HKG4TrackingAction::HKG4TrackingAction() : Tool(), G4UserTrackingAction() {
 
-	std::cerr << "Default tracking processes/particles should be nothing. Move all to the config file" << std::endl;
-	
+	std::cerr << "Default tracking processes/particles should be nothing. Move all to the config file"
+	          << std::endl;
+
 	ProcessList.insert("Decay");  // Michel e- from pi+ and mu+
 	ProcessList.insert("conv");   // Products of gamma conversion
 
 	// Includes Muon decay from K-shell: for Michel
 	// e- from mu0. This dominates/replaces the mu- decay
-	//Turned off to match WCSim
-	//ProcessList.insert("muMinusCaptureAtRest") ;
-	
+	// Turned off to match WCSim
+	// ProcessList.insert("muMinusCaptureAtRest") ;
+
 	ProcessList.insert("nCapture");
 
 	// Can check here if the photon comes from WLS
@@ -31,14 +32,14 @@ HKG4TrackingAction::HKG4TrackingAction() : Tool(), G4UserTrackingAction() {
 	ParticleList.insert(-321);  // kaon-
 	ParticleList.insert(311);   // kaon0
 	ParticleList.insert(-311);  // kaon0 bar
-	ParticleList.insert(11);   // e-
-	ParticleList.insert(-11);  // e+
-	ParticleList.insert(13);   // mu-
-	ParticleList.insert(-13);  // mu+
+	ParticleList.insert(11);    // e-
+	ParticleList.insert(-11);   // e+
+	ParticleList.insert(13);    // mu-
+	ParticleList.insert(-13);   // mu+
 
-	//Turned off to match WCSim
-	//ParticleList.insert(22); // gammas (high energy photons)
-	
+	// Turned off to match WCSim
+	// ParticleList.insert(22); // gammas (high energy photons)
+
 	// don't put optical photons there or there'll be too many
 
 	// protons and neutrons
@@ -50,7 +51,6 @@ HKG4TrackingAction::HKG4TrackingAction() : Tool(), G4UserTrackingAction() {
 	// Max time for radioactive decay:
 	fMaxTime    = 1. * CLHEP::second;
 	fTime_birth = 0.;
-
 }
 
 HKG4TrackingAction::~HKG4TrackingAction() {};
@@ -69,14 +69,14 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 
 	m_data->m_p_g4_run_manager->SetUserAction(this);
 
-	//set options
+	// set options
 	float fraction_of_optical_photons_to_save;
 	if(!m_variables.Get("fraction_of_optical_photons_to_save", fraction_of_optical_photons_to_save)) {
 		fraction_of_optical_photons_to_save = 0;
 		std::cout << "fraction_of_optical_photons_to_save option not given. Defaulting to 0" << std::endl;
 	}
 	percentageOfCherenkovPhotonsToDraw = fraction_of_optical_photons_to_save;
-	
+
 	int track_particles_by_pid;
 	if(m_variables.Get("track_particles_by_pid", track_particles_by_pid)) {
 		std::cout << "Tracking all particles with PID = " << track_particles_by_pid << std::endl;
@@ -89,23 +89,25 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 		ProcessList.insert(track_particles_by_process);
 	}
 
-	std::cerr << "TODO: work out how to read a vector of values (or some other way of getting multiple values)" << std::endl;
+	std::cerr
+	    << "TODO: work out how to read a vector of values (or some other way of getting multiple values)"
+	    << std::endl;
 	/*
 	std::vector<int> track_particles_by_pid;
 	m_variables.Get("track_particles_by_pid", track_particles_by_pid);
 	for(int pid : track_particles_by_pid) {
-		std::cout << "Tracking all particles with PID = " << pid << std::endl;
-		ProcessList.insert(pid);
+	    std::cout << "Tracking all particles with PID = " << pid << std::endl;
+	    ProcessList.insert(pid);
 	}
 
 	std::vector<std::string> *track_particles_by_process;
 	m_variables.Get("track_particles_by_process", track_particles_by_process);
 	for(std::string process : *track_particles_by_process) {
-		std::cout << "Tracking all particles with process = " << process << std::endl;
-		ProcessList.insert(process);
+	    std::cout << "Tracking all particles with process = " << process << std::endl;
+	    ProcessList.insert(process);
 	}
 	*/
-	
+
 	return true;
 }
 
@@ -118,7 +120,6 @@ bool HKG4TrackingAction::Finalise() {
 
 	return true;
 }
-
 
 void HKG4TrackingAction::PreUserTrackingAction(const G4Track* aTrack) {
 	// TF: userdefined now
@@ -199,7 +200,8 @@ void HKG4TrackingAction::PostUserTrackingAction(const G4Track* aTrack) {
 	   ((creatorProcess != 0) && ProcessList.count(creatorProcess->GetProcessName())) ||
 	   (ParticleList.count(aTrack->GetDefinition()->GetPDGEncoding())) ||
 	   (aTrack->GetDefinition()->GetPDGEncoding() == 22 && aTrack->GetTotalEnergy() > 1.0 * CLHEP::MeV) ||
-	   (creatorProcess->GetProcessName() == "muMinusCaptureAtRest" && aTrack->GetTotalEnergy() > 1.0 * CLHEP::MeV)) {
+	   (creatorProcess->GetProcessName() == "muMinusCaptureAtRest" &&
+	    aTrack->GetTotalEnergy() > 1.0 * CLHEP::MeV)) {
 		// if so the track is worth saving
 		anInfo->WillBeSaved(true);
 
