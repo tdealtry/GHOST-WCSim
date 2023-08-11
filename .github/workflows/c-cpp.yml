@@ -29,6 +29,8 @@ jobs:
         make
     - name: build hk-datamodel
       run: |
+        ls /usr/local/hk/
+        cat /usr/local/hk/setup.sh
         source /usr/local/hk/setup.sh
         git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
         cd /usr/local/hk/hk-ToolApp/hk-DataModel
