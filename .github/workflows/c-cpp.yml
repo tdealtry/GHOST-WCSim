@@ -27,14 +27,6 @@ jobs:
         cd /usr/local/hk/ToolFrameworkCore/src/
         sed -i 's!gray!grey!' src/Logging/Logging.h
         make
-    - name: build hk-datamodel
-      run: |
-        ls /usr/local/hk/
-        cat /usr/local/hk/setup.sh
-        source /usr/local/hk/setup.sh
-        git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
-        cd /usr/local/hk/hk-ToolApp/hk-DataModel
-        make
     - uses: actions/checkout@v2
     - name: build WCSim
       run: |
@@ -44,6 +36,15 @@ jobs:
         cmake ../OriginalWCSim
         make
         make install
+        echo source /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/this_wcsim.sh >> setup.sh
+    - name: build hk-datamodel
+      run: |
+        ls /usr/local/hk/
+        cat /usr/local/hk/setup.sh
+        source /usr/local/hk/setup.sh
+        git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
+        cd /usr/local/hk/hk-ToolApp/hk-DataModel
+        make
     - name: build
       run: |
         source /usr/local/hk/setup.sh
@@ -51,5 +52,4 @@ jobs:
         ls
         mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         ln -s $PWD/OriginalWCSim_build/ /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
-        export WCSIMDIR=$PWD/OriginalWCSim/
         make
