@@ -8,7 +8,6 @@
 #include "WCSimRunAction.hh"
 #include "WCSimStackingAction.hh"
 #include "WCSimSteppingAction.hh"
-#include "WCSimTrackingAction.hh"
 #include "WCSimTuningParameters.hh"
 
 using namespace HK::GHOST::G4;
