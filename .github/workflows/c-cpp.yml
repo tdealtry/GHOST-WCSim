@@ -30,7 +30,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: link
       run: |
-        mkdir -p /opt/hk-ToolApp/UserTools/ImportedTools/
+        mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
         ln -s $PWD/ /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
     - name: build WCSim
       run: |
