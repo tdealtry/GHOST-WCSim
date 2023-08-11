@@ -16,16 +16,26 @@ jobs:
     container: ghcr.io/hyperk/hk-software:main
     steps:
     - name: Framework build
-      run: cd /usr/local/hk/ToolFrameworkCore/src/ && sed -i 's!gray!grey!' src/Logging/Logging.h && make
+      run: |
+        cd /usr/local/hk/ToolFrameworkCore/src/
+        sed -i 's!gray!grey!' src/Logging/Logging.h
+        make
+    - name: Make setup script
+      run: |
+        source /usr/local/hk/hk-pilot/setup.sh >> setup.sh
+        source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh >> setup.sh
+        source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh >> setup.sh
+        source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh >> setup.sh
     - name: build hk-datamodel
-      run: git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel && cd /usr/local/hk/hk-ToolApp/hk-DataModel && make  
+      run: |
+        source setup.sh
+        git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
+        cd /usr/local/hk/hk-ToolApp/hk-DataModel
+        make
     - uses: actions/checkout@v2
     - name: build WCSim
       run: |
-        source /usr/local/hk/hk-pilot/setup.sh
-        source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
-        source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
-        source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh
+        source setup.sh
         mkdir OriginalWCSim_build
         cd OriginalWCSim_build
         cmake ../OriginalWCSim
@@ -33,10 +43,7 @@ jobs:
         make install
     - name: build
       run: |
-        source /usr/local/hk/hk-pilot/setup.sh
-        source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
-        source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
-        source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh
+        source setup.sh
         pwd
         ls
         mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
