@@ -47,12 +47,13 @@ make
 # Note I can't see a way to do this in batch. Need to select the tools by hand each time
 #  so things are actually commited to my hk-ToolApp branch, so this doesn't have to be done
 ./Import.sh
-## then select WCSim_exe with the space & press enter to ok
+## then select WCSim_exe (and any HKG4 tools) with the space & press enter to ok
 cd /usr/local/hk/hk-ToolApp/UserTools
 ./ToolSelect.sh
-## then select (de)activate, WCSim_exe with space, then backup or not
+## then select (de)activate, WCSim_exe (and any HKG4 tools) with space, then backup or not
 #And hack the namespace in Factory.cpp
-sed -i 's!new WCSim_exe!new HK::GHOST::WCSim_exe!' Factory/Factory.cpp
+sed -i 's!new WCSim_exe!new HK::GHOST::G4::WCSim_exe!' Factory/Factory.cpp
+sed -i 's!new HKG4!new HK::GHOST::G4::HKG4!' Factory/Factory.cpp
 
 #Finally we can build hk-ToolApp
 cd ..
