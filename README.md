@@ -3,6 +3,8 @@
 ## Current installation instructions
 
 From `docker run -it ghcr.io/hyperk/hk-software`
+
+If these instructions are out of date, please check `.github/workflows/c-cpp.yml` for something that (should) work
 ```bash
 #Clone hk-ToolApp and associated modules
 git clone https://github.com/tdealtry/hk-ToolApp.git
@@ -38,6 +40,16 @@ source ./this_wcsim.sh
 #Hack gray->grey
 sed -i 's!gray!grey!' /usr/local/hk/ToolFrameworkCore/src/include/Logging.h
 sed -i 's!gray!grey!' /usr/local/hk/ToolFrameworkCore/install-Linux_x86_64-gcc_8-python_3.8.13//include/ToolFrameworkCore/Logging.h
+
+#Use my copy of DataModel
+# it contains things required by GHOST
+# This must be done after building the original WCSim code
+cd /usr/local/hk/hk-ToolApp/hk-DataModel
+git remote add tom git remote add tom https:github.com/tdealtry/hk-DataModel.git
+git fetch tom
+git switch --detach tom/main
+make clean
+make
 
 #Finally make GHOST-WCSim
 cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
