@@ -1,6 +1,5 @@
 #include "WCSim_exe.h"
 
-#include "WCSimDetectorConstruction.hh"
 #include "WCSimEventAction.hh"
 #include "WCSimPhysicsListFactory.hh"
 #include "WCSimPrimaryGeneratorAction.hh"
@@ -8,7 +7,6 @@
 #include "WCSimRunAction.hh"
 #include "WCSimStackingAction.hh"
 #include "WCSimSteppingAction.hh"
-#include "WCSimTrackingAction.hh"
 #include "WCSimTuningParameters.hh"
 
 using namespace HK::GHOST::G4;
@@ -98,7 +96,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	// Set up the tuning parameters that need to be read before the detector
 	//  construction is done
-	WCSimTuningParameters* tuningpars = new WCSimTuningParameters();
+	m_data->m_p_g4_tuning_pars = unique_ptr<WCSimTuningParameters>(new WCSimTuningParameters);
 	std::cout << "Processing tuning parameter file " << wcsim_mac_tuning_filename << std::endl;
 	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
 
@@ -106,13 +104,6 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	WCSimRandomParameters* randomparameters = new WCSimRandomParameters();
 
 	// UserInitialization classes (mandatory)
-	enum DetConfiguration { wfm = 1, fwm = 2 };
-
-	G4int WCSimConfiguration = fwm;
-
-	WCSimDetectorConstruction* WCSimdetector = new WCSimDetectorConstruction(WCSimConfiguration, tuningpars);
-
-	m_data->m_p_g4_run_manager->SetUserInitialization(WCSimdetector);
 
 	// Added selectable physics lists 2010-07 by DMW
 	// Set up the messenger hooks here, initialize the actual list after loading jobOptions.mac
@@ -124,25 +115,27 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	physFactory->InitializeList();
 	m_data->m_p_g4_run_manager->SetUserInitialization(physFactory);
 
+	if(!m_data->m_p_wcsim_detector_construction.get())
+		return false;
+
 	// Set user action classes
-	WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(WCSimdetector);
+	WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(m_data->m_p_wcsim_detector_construction.get());
 	m_data->m_p_g4_run_manager->SetUserAction(myGeneratorAction);
 
-	WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
+	WCSimRunAction* myRunAction = new WCSimRunAction(m_data->m_p_wcsim_detector_construction.get(), randomparameters);
 
 	// save all the options from WCSimTuningParameters & WCSimPhysicsListFactory
 	//(set in tuning_parameters.mac & jobOptions*.mac)
-	tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());
+	m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(myRunAction->GetRootOptions());
 	physFactory->SaveOptionsToOutput(myRunAction->GetRootOptions());
 
 	m_data->m_p_g4_run_manager->SetUserAction(myRunAction);
 
-	m_data->m_p_g4_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
-	//m_data->m_p_g4_run_manager->SetUserAction(new WCSimTrackingAction);
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimEventAction(myRunAction, m_data->m_p_wcsim_detector_construction.get(), myGeneratorAction));
 
-	m_data->m_p_g4_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimStackingAction(m_data->m_p_wcsim_detector_construction.get()));
 
-	m_data->m_p_g4_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, WCSimdetector));
+	m_data->m_p_g4_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, m_data->m_p_wcsim_detector_construction.get()));
 
 	// Initialize G4 kernel
 	m_data->m_p_g4_run_manager->Initialize();
