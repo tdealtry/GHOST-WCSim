@@ -2,8 +2,8 @@
 #define HKG4TrackingAction_H
 
 #include <iostream>
-#include <string>
 #include <memory>
+#include <string>
 
 #include <DataModel.h>
 #include "Tool.h"
@@ -23,24 +23,26 @@
 namespace HK {
 	namespace GHOST {
 		namespace G4 {
-class HKG4TrackingAction : public Tool {
+			class HKG4TrackingAction : public Tool {
 
-	public:
+				public:
 
-		HKG4TrackingAction();  ///< Simple constructor
-		bool Initialise(std::string configfile,
-		                DataModel& data);  ///< Initialise Function for setting up Tool resources. @param
-		                                   ///< configfile The path and name of the dynamic configuration file
-		                                   ///< to read in. @param data A reference to the transient data
-		                                   ///< class used to pass information between Tools.
-		bool Execute();                    ///< Execute function used to perform Tool purpose.
-		bool Finalise();                   ///< Finalise funciton used to clean up resources.
+					HKG4TrackingAction();  ///< Simple constructor
+					bool Initialise(
+					    std::string configfile,
+					    DataModel& data);  ///< Initialise Function for setting up Tool resources. @param
+					                       ///< configfile The path and name of the dynamic configuration file
+					                       ///< to read in. @param data A reference to the transient data
+					                       ///< class used to pass information between Tools.
+					bool Execute();        ///< Execute function used to perform Tool purpose.
+					bool Finalise();       ///< Finalise funciton used to clean up resources.
 
-	private:
-	std::unique_ptr<WCSimTrackingAction> m_p_wcsim_tracking_action;
-};
+				private:
 
-		} // namespace G4
-	} // namespace GHOST
-} // namespace HK
+					std::unique_ptr<WCSimTrackingAction> m_p_wcsim_tracking_action;
+			};
+
+		}  // namespace G4
+	}      // namespace GHOST
+}  // namespace HK
 #endif

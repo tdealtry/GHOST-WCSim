@@ -17,15 +17,16 @@ bool HKG4DetectorConstruction::Initialise(std::string configfile, DataModel& dat
 		m_verbose = 1;
 
 	enum DetConfiguration { wfm = 1, fwm = 2 };
+
 	G4int WCSimConfiguration = fwm;
-	
-  m_data->m_p_wcsim_detector_construction = std::unique_ptr<WCSimDetectorConstruction>(new WCSimDetectorConstruction(WCSimConfiguration, m_data->m_p_g4_tuning_pars.get()));
 
-  m_data->m_p_g4_run_manager->SetUserInitialization(m_data->m_p_wcsim_detector_construction.get());
+	m_data->m_p_wcsim_detector_construction = std::unique_ptr<WCSimDetectorConstruction>(
+	    new WCSimDetectorConstruction(WCSimConfiguration, m_data->m_p_g4_tuning_pars.get()));
 
-	//set options
+	m_data->m_p_g4_run_manager->SetUserInitialization(m_data->m_p_wcsim_detector_construction.get());
+
+	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;
-
 
 	return true;
 }
