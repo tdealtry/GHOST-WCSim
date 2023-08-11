@@ -18,10 +18,10 @@ jobs:
     - name: Make setup script
       run: |
         cd /usr/local/hk/
-        echo /usr/local/hk/hk-pilot/setup.sh >> setup.sh
-        echo /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh >> setup.sh
-        echo /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh >> setup.sh
-        echo /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh >> setup.sh
+        echo source /usr/local/hk/hk-pilot/setup.sh >> setup.sh
+        echo source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh >> setup.sh
+        echo source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh >> setup.sh
+        echo source /usr/local/hk/Geant4/install-Linux_x86_64-gcc_8-python_3.8.13/bin/geant4.sh >> setup.sh
     - name: Framework build
       run: |
         cd /usr/local/hk/ToolFrameworkCore/src/
