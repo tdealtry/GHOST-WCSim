@@ -5,7 +5,6 @@
 #include "G4TrackingManager.hh"
 #include "G4VProcess.hh"
 #include "WCSimTrackInformation.hh"
-#include "WCSimTrackingMessenger.hh"
 #include "WCSimTrajectory.hh"
 
 #include "G4PhysicalConstants.hh"
@@ -47,8 +46,6 @@ WCSimTrackingAction::WCSimTrackingAction() {
 	ParticleList.insert(2112);
 
 	percentageOfCherenkovPhotonsToDraw = 0.0;
-
-	messenger = new WCSimTrackingMessenger(this);
 
 	// Max time for radioactive decay:
 	fMaxTime    = 1. * CLHEP::second;
