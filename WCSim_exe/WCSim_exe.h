@@ -21,6 +21,7 @@
 
 namespace HK {
 	namespace GHOST {
+		namespace G4 {
 		class WCSim_exe : public Tool {
 
 			public:
@@ -51,7 +52,8 @@ namespace HK {
 				long m_number_of_events;
 				long m_current_event;
 		};
-
+		} //namespace G4
+		
 		namespace utils {
 			//! Get an environment variable, falling back to a default value
 			/*!
@@ -69,7 +71,7 @@ namespace HK {
 			*/
 			bool FileExists(const char* filename);
 
-		}  // namespace utils
-	}      // namespace GHOST
-}  // namespace HK
+		} // namespace utils
+	} // namespace GHOST
+} // namespace HK
 #endif

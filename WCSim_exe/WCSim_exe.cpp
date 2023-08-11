@@ -11,7 +11,7 @@
 #include "WCSimTrackingAction.hh"
 #include "WCSimTuningParameters.hh"
 
-using namespace HK::GHOST;
+using namespace HK::GHOST::G4;
 
 bool HK::GHOST::utils::FileExists(const char* filename) {
 	bool exists = access(filename, F_OK) != -1;
