@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include <DataModel.h>
 #include "Tool.h"
