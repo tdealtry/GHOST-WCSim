@@ -8,7 +8,6 @@
 #include "Tool.h"
 
 #include "G4RunManager.hh"
-#include "G4UImanager.hh"
 
 /**
  * \class WCSim_exe
@@ -47,9 +46,9 @@ namespace HK {
 					*/
 					std::string GetConfigFilename(const char* config_param, const char* default_filename);
 
-					G4UImanager* m_p_UI;
-					long m_number_of_events;
-					long m_current_event;
+				  unsigned long m_number_of_events;
+
+				std::string m_wcsim_mac_filename;
 			};
 		}  // namespace G4
 
