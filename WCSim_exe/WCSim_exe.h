@@ -46,9 +46,9 @@ namespace HK {
 					*/
 					std::string GetConfigFilename(const char* config_param, const char* default_filename);
 
-				  unsigned long m_number_of_events;
+					unsigned long m_number_of_events;
 
-				std::string m_wcsim_mac_filename;
+					std::string m_wcsim_mac_filename;
 			};
 		}  // namespace G4
 

@@ -16,11 +16,11 @@ bool HKG4PhysicsListFactory::Initialise(std::string configfile, DataModel& data)
 	if(!m_variables.Get("verbose", m_verbose))
 		m_verbose = 1;
 
-
 	// Initialize the physics factory to register the selected physics.
 
 	// First set up the messenger hooks
-	m_data->m_p_wcsim_physics_list_factory = std::unique_ptr<WCSimPhysicsListFactory>(new WCSimPhysicsListFactory());
+	m_data->m_p_wcsim_physics_list_factory =
+	    std::unique_ptr<WCSimPhysicsListFactory>(new WCSimPhysicsListFactory());
 
 	// then read the mac file
 	m_data->m_p_UI->ApplyCommand("/control/execute " + m_data->m_wcsim_mac_job_opt_filename);
