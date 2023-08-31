@@ -115,8 +115,10 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	physFactory->InitializeList();
 	m_data->m_p_g4_run_manager->SetUserInitialization(physFactory);
 
-	if(!m_data->m_p_wcsim_detector_construction.get())
+	if(!m_data->m_p_wcsim_detector_construction.get()) {
+		std::cerr << "Pointer to WCSimDetectorConstruction not found. Exiting" << std::endl;
 		return false;
+	}
 
 	// Set user action classes
 	WCSimPrimaryGeneratorAction* myGeneratorAction =
