@@ -67,8 +67,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	    GetConfigFilename("wcsim_mac_job_opt_filename", (wcsim_dir + "/macros/jobOptions.mac").c_str());
 	std::string wcsim_mac_tuning_filename =
 	    GetConfigFilename("wcsim_mac_tuning_filename", (wcsim_dir + "/macros/tuning_parameters.mac").c_str());
-	m_wcsim_mac_filename =
-	    GetConfigFilename("wcsim_mac_filename", (wcsim_dir + "/WCSim.mac").c_str());
+	m_wcsim_mac_filename = GetConfigFilename("wcsim_mac_filename", (wcsim_dir + "/WCSim.mac").c_str());
 
 	// get the number of events
 	if(!m_variables.Get("number_of_events", m_number_of_events)) {
@@ -114,14 +113,15 @@ bool WCSim_exe::Execute() {
 		// save all the options from WCSimTuningParameters and WCSimPhysicsListFactory
 		//(set in e.g. tuning_parameters.mac and jobOptions.mac)
 		m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
-		m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
-		
+		m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(
+		    m_data->m_p_wcsim_run_action->GetRootOptions());
+
 		// Initialize G4 kernel
 		m_data->m_p_g4_run_manager->Initialize();
 
 		m_data->m_p_UI->ApplyCommand("/control/execute " + m_wcsim_mac_filename);
 	}
-	
+
 	if(m_data->m_current_event < m_number_of_events) {
 		m_data->m_p_UI->ApplyCommand("/run/beamOn 1");
 	}

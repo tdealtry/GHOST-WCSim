@@ -16,13 +16,16 @@ bool HKG4EventAction::Initialise(std::string configfile, DataModel& data) {
 	if(!m_variables.Get("verbose", m_verbose))
 		m_verbose = 1;
 
-	m_data->m_p_wcsim_event_action = std::unique_ptr<WCSimEventAction>(new WCSimEventAction(m_data->m_p_wcsim_run_action.get(), m_data->m_p_wcsim_detector_construction.get(), m_data->m_p_wcsim_primary_generator_action.get()));
+	m_data->m_p_wcsim_event_action = std::unique_ptr<WCSimEventAction>(
+	    new WCSimEventAction(m_data->m_p_wcsim_run_action.get(),
+	                         m_data->m_p_wcsim_detector_construction.get(),
+	                         m_data->m_p_wcsim_primary_generator_action.get()));
 
 	m_data->m_p_g4_run_manager->SetUserAction(m_data->m_p_wcsim_event_action.get());
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;
-	
+
 	return true;
 }
 
