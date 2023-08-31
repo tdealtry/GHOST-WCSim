@@ -41,7 +41,7 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 	}
 
 	std::cerr
-	    << "TODO: work out how to read a vector of values (or some other way of getting multiple values)"
+	    << "TODO: work out how to read a vector of values (or some other way of getting multiple values) in order to setup which particles/processes should be tracked"
 	    << std::endl;
 	/*
 	std::vector<int> track_particles_by_pid;

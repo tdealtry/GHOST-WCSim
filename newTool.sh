@@ -72,8 +72,8 @@ fi
 	else
 	    
 	    mkdir $dir
-	    more template/MyTool$template.h | sed s:MyTool$template:$dir:g | sed s:MYTOOL${template}_H:${dir}_H:g > ./$dir/$dir.h
-	    more template/MyTool$template.cpp | sed s:MyTool$template:$dir:g | sed s:MyTool$template\(\):$dir\(\):g > ./$dir/$dir.cpp
+	    more template/MyTool$template.h | sed s:MyTool$template:$dir:g | sed s:MYTOOL${template}_H:${dir}_H:g | sed s:WCSIM:$3:g | sed s:wcsim__:$4:g > ./$dir/$dir.h
+	    more template/MyTool$template.cpp | sed s:MyTool$template:$dir:g | sed s:MyTool$template\(\):$dir\(\):g | sed s:WCSIM:$3:g | sed s:wcsim__:$4:g > ./$dir/$dir.cpp
 	    more template/README.md | sed s:MyTool:$dir:g | sed s:MyTool\(\):$dir\(\):g > ./$dir/README.md
 	fi
     else
