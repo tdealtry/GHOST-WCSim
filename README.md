@@ -28,6 +28,10 @@ cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
 git clone https://github.com/tdealtry/GHOST-WCSim.git
 cd GHOST-WCSim
 
+#Get the submodule (i.e. original WCSim code)
+git submodule init
+git submodule update
+
 #Build the old WCSim code
 mkdir OriginalWCSim_build
 cd OriginalWCSim_build
