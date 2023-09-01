@@ -13,7 +13,8 @@ git switch ghost
 git submodule init
 git submodule update
 
-#Setup the generic HK software
+#Setup the generic HK software - should now be done automatically when you load the image
+# However there is a bug where `$LD_LIBRARY_PATH` is not set correctly...
 source /usr/local/hk/hk-pilot/setup.sh
 source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
 source /usr/local/hk/ROOT/install-Linux_x86_64-gcc_8-python_3.8.13/bin/thisroot.sh
@@ -49,7 +50,7 @@ sed -i 's!gray!grey!' /usr/local/hk/ToolFrameworkCore/install-Linux_x86_64-gcc_8
 # it contains things required by GHOST
 # This must be done after building the original WCSim code
 cd /usr/local/hk/hk-ToolApp/hk-DataModel
-git remote add tom git remote add tom https:github.com/tdealtry/hk-DataModel.git
+git remote add tom https://github.com/tdealtry/hk-DataModel.git
 git fetch tom
 git switch --detach tom/main
 make clean
