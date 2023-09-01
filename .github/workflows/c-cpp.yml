@@ -28,6 +28,10 @@ jobs:
         sed -i 's!gray!grey!' src/Logging/Logging.h
         make
     - uses: actions/checkout@v2
+    - name: get submodules
+      run: |
+        git submodule init
+        git submodule update
     - name: link
       run: |
         mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
