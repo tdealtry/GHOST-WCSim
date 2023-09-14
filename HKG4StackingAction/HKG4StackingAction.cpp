@@ -19,7 +19,7 @@ bool HKG4StackingAction::Initialise(std::string configfile, DataModel& data) {
 	m_data->m_p_wcsim_stacking_action = std::unique_ptr<WCSimStackingAction>(
 	    new WCSimStackingAction(m_data->m_p_wcsim_detector_construction.get()));
 
-	m_data->m_p_g4_run_manager->SetUserAction(m_data->m_p_wcsim_stacking_action.get());
+	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_stacking_action.get());
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;

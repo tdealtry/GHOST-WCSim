@@ -26,7 +26,7 @@ bool HKG4PrimaryGeneratorAction::Initialise(std::string configfile, DataModel& d
 	m_data->m_p_wcsim_primary_generator_action = std::unique_ptr<WCSimPrimaryGeneratorAction>(
 	    new WCSimPrimaryGeneratorAction(m_data->m_p_wcsim_detector_construction.get()));
 
-	m_data->m_p_g4_run_manager->SetUserAction(m_data->m_p_wcsim_primary_generator_action.get());
+	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_primary_generator_action.get());
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;

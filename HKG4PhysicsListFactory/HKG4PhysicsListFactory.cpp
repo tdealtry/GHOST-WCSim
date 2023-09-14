@@ -29,7 +29,7 @@ bool HKG4PhysicsListFactory::Initialise(std::string configfile, DataModel& data)
 	// Now we can finally setup the physics list based on the options
 	m_data->m_p_wcsim_physics_list_factory->InitializeList();
 
-	m_data->m_p_g4_run_manager->SetUserInitialization(m_data->m_p_wcsim_physics_list_factory.get());
+	G4RunManager::GetRunManager()->SetUserInitialization(m_data->m_p_wcsim_physics_list_factory.get());
 
 	return true;
 }

@@ -82,7 +82,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	///////////
 
 	// Construct the default run manager
-	m_data->m_p_g4_run_manager = unique_ptr<G4RunManager>(new G4RunManager);
+	new G4RunManager;
 
 	// get the pointer to the UI manager
 	m_data->m_p_UI = G4UImanager::GetUIpointer();
@@ -108,6 +108,10 @@ bool WCSim_exe::Execute() {
 		std::cerr << "Pointer to WCSimDetectorConstruction not found. Exiting" << std::endl;
 		return false;
 	}
+	if(!m_data->m_p_wcsim_primary_generator_action.get()) {
+		std::cerr << "Pointer to WCSimPrimaryGeneratorAction not found. Exiting" << std::endl;
+		return false;
+	}
 
 	if(m_data->m_current_event == 0) {
 		// save all the options from WCSimTuningParameters and WCSimPhysicsListFactory
@@ -117,7 +121,7 @@ bool WCSim_exe::Execute() {
 		    m_data->m_p_wcsim_run_action->GetRootOptions());
 
 		// Initialize G4 kernel
-		m_data->m_p_g4_run_manager->Initialize();
+		G4RunManager::GetRunManager()->Initialize();
 
 		m_data->m_p_UI->ApplyCommand("/control/execute " + m_wcsim_mac_filename);
 	}

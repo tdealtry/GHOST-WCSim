@@ -18,7 +18,7 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 
 	m_p_wcsim_tracking_action = std::unique_ptr<WCSimTrackingAction>(new WCSimTrackingAction);
 
-	m_data->m_p_g4_run_manager->SetUserAction(m_p_wcsim_tracking_action.get());
+	G4RunManager::GetRunManager()->SetUserAction(m_p_wcsim_tracking_action.get());
 
 	// set options
 	float fraction_of_optical_photons_to_save;
@@ -26,18 +26,18 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 		fraction_of_optical_photons_to_save = 0;
 		std::cout << "fraction_of_optical_photons_to_save option not given. Defaulting to 0" << std::endl;
 	}
-	m_p_wcsim_tracking_action.get()->SetFractionChPhotons(fraction_of_optical_photons_to_save);
+	m_p_wcsim_tracking_action->SetFractionChPhotons(fraction_of_optical_photons_to_save);
 
 	int track_particles_by_pid;
 	if(m_variables.Get("track_particles_by_pid", track_particles_by_pid)) {
 		std::cout << "Tracking all particles with PID = " << track_particles_by_pid << std::endl;
-		m_p_wcsim_tracking_action.get()->AddParticle(track_particles_by_pid);
+		m_p_wcsim_tracking_action->AddParticle(track_particles_by_pid);
 	}
 
 	std::string track_particles_by_process;
 	if(m_variables.Get("track_particles_by_process", track_particles_by_process)) {
 		std::cout << "Tracking all particles with process = " << track_particles_by_process << std::endl;
-		m_p_wcsim_tracking_action.get()->AddProcess(track_particles_by_process);
+		m_p_wcsim_tracking_action->AddProcess(track_particles_by_process);
 	}
 
 	std::cerr
@@ -48,14 +48,14 @@ bool HKG4TrackingAction::Initialise(std::string configfile, DataModel& data) {
 	m_variables.Get("track_particles_by_pid", track_particles_by_pid);
 	for(int pid : track_particles_by_pid) {
 	    std::cout << "Tracking all particles with PID = " << pid << std::endl;
-	    m_p_wcsim_tracking_action.get()->AddParticle(pid);
+	    m_p_wcsim_tracking_action->AddParticle(pid);
 	}
 
 	std::vector<std::string> *track_particles_by_process;
 	m_variables.Get("track_particles_by_process", track_particles_by_process);
 	for(std::string process : *track_particles_by_process) {
 	    std::cout << "Tracking all particles with process = " << process << std::endl;
-	    m_p_wcsim_tracking_action.get()->AddProcess(process);
+	    m_p_wcsim_tracking_action->AddProcess(process);
 	}
 	*/
 
