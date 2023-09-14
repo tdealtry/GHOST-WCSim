@@ -6,7 +6,8 @@ HKG4DetectorConstruction::HKG4DetectorConstruction() : Tool() {}
 
 bool HKG4DetectorConstruction::Initialise(std::string configfile, DataModel& data) {
 
-	std::cerr << "UI ptr at start of detcon:initialise(): " << G4UImanager::GetUIpointer() << " / " << m_data->m_p_UI << std::endl;
+	std::cerr << "UI ptr at start of detcon:initialise(): " << G4UImanager::GetUIpointer() << " / "
+	          << m_data->m_p_UI << std::endl;
 	if(configfile != "")
 		m_variables.Initialise(configfile);
 	// m_variables.Print();
@@ -21,14 +22,15 @@ bool HKG4DetectorConstruction::Initialise(std::string configfile, DataModel& dat
 
 	G4int WCSimConfiguration = fwm;
 
-	m_data->m_p_wcsim_detector_construction = new WCSimDetectorConstruction(
-										WCSimConfiguration, m_data->m_p_g4_tuning_pars);
+	m_data->m_p_wcsim_detector_construction =
+	    new WCSimDetectorConstruction(WCSimConfiguration, m_data->m_p_g4_tuning_pars);
 
 	G4RunManager::GetRunManager()->SetUserInitialization(m_data->m_p_wcsim_detector_construction);
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;
-	std::cerr << "UI ptr at end of detcon:initialise(): " << G4UImanager::GetUIpointer() << " / " << m_data->m_p_UI << std::endl;
+	std::cerr << "UI ptr at end of detcon:initialise(): " << G4UImanager::GetUIpointer() << " / "
+	          << m_data->m_p_UI << std::endl;
 
 	return true;
 }

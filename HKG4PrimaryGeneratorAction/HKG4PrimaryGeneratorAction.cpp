@@ -23,8 +23,8 @@ bool HKG4PrimaryGeneratorAction::Initialise(std::string configfile, DataModel& d
 		return false;
 	}
 
-	m_data->m_p_wcsim_primary_generator_action = new WCSimPrimaryGeneratorAction(
-	    m_data->m_p_wcsim_detector_construction);
+	m_data->m_p_wcsim_primary_generator_action =
+	    new WCSimPrimaryGeneratorAction(m_data->m_p_wcsim_detector_construction);
 
 	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_primary_generator_action);
 

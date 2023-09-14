@@ -17,8 +17,7 @@ bool HKG4RunAction::Initialise(std::string configfile, DataModel& data) {
 		m_verbose = 1;
 
 	m_data->m_p_wcsim_run_action =
-	  new WCSimRunAction(m_data->m_p_wcsim_detector_construction,
-			     m_data->m_p_wcsim_random_parameters);
+	    new WCSimRunAction(m_data->m_p_wcsim_detector_construction, m_data->m_p_wcsim_random_parameters);
 
 	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_run_action);
 

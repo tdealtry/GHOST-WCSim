@@ -88,10 +88,12 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	std::cerr << "G4RunManager memory location: " << G4RunManager::GetRunManager() << std::endl;
 
 	// get the pointer to the UI manager
-	std::cerr << "UI ptr before creation: " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	std::cerr << "UI ptr before creation: " << G4UImanager::GetUIpointer() << " / "
+	          << G4UImanager::GetUIpointer() << std::endl;
 	G4UImanager::GetUIpointer() = G4UImanager::GetUIpointer();
-	std::cerr << "UI ptr after creation: " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
-	
+	std::cerr << "UI ptr after creation: " << G4UImanager::GetUIpointer() << " / "
+	          << G4UImanager::GetUIpointer() << std::endl;
+
 	// Set up the tuning parameters that need to be read before the detector
 	//  construction is done
 	m_data->m_p_g4_tuning_pars = new WCSimTuningParameters();
@@ -115,12 +117,14 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	TFile frec("read.root", "RECREATE");
 	std::cerr << "Open TFile in recreate mode:Done" << std::endl;
 
-	std::cerr << "UI ptr at end of WCSim_exe::initialise(): " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	std::cerr << "UI ptr at end of WCSim_exe::initialise(): " << G4UImanager::GetUIpointer() << " / "
+	          << G4UImanager::GetUIpointer() << std::endl;
 	return true;
 }
 
 bool WCSim_exe::Execute() {
-  std::cerr << "UI ptr at start of WCSim_exe::execute() : " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	std::cerr << "UI ptr at start of WCSim_exe::execute() : " << G4UImanager::GetUIpointer() << " / "
+	          << G4UImanager::GetUIpointer() << std::endl;
 	if(!G4RunManager::GetRunManager->GetUserDetectorConstruction) {
 		std::cerr << "Pointer to WCSimDetectorConstruction not found. Exiting" << std::endl;
 		return false;
@@ -129,9 +133,9 @@ bool WCSim_exe::Execute() {
 	if(m_data->m_current_event == 0) {
 		// save all the options from WCSimTuningParameters and WCSimPhysicsListFactory
 		//(set in e.g. tuning_parameters.mac and jobOptions.mac)
-	  //m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
-	  //	m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(
-	  //	    m_data->m_p_wcsim_run_action->GetRootOptions());
+		// m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
+		//	m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(
+		//	    m_data->m_p_wcsim_run_action->GetRootOptions());
 
 		// Initialize G4 kernel
 		G4RunManager::GetRunManager()->Initialize();
