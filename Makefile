@@ -18,7 +18,10 @@ EXTERNALS := $(ROOT_INCLUDES) \
 	$(WCSIM_LIBS) \
 	$(WCSIM_INCLUDES)
 
-CXXFLAGS = g++ -O3 -fPIC
+CXXFLAGS = g++ -O3 -fPIC -Wpedantic -Wall #-std=c++17
+ifeq ($(MAKECMDGOALS),debug)
+CXXFLAGS+= -O0 -g -lSegFault -rdynamic -DDEBUG #-fsanitize=address
+endif
 
 objects:= $(patsubst %.cpp, %.o, $(filter-out template/%.cpp, $(wildcard */*.cpp)))
 libs:= $(subst /,/lib, $(patsubst %.o, %.so, $(objects)))
@@ -26,10 +29,10 @@ libs:= $(subst /,/lib, $(patsubst %.o, %.so, $(objects)))
 all: $(libs)
 
 lib%.so: %.o
-	$(CXXFLAGS) --shared $*.o -o $@ -I $(DataModelPath) -L $(DataModelPath) -lDataModel -I $(ToolFrameworkPath)/include -L $(ToolFrameworkPath)/lib -lStore -LLogging $(EXTERNALS)
+	$(CXXFLAGS) --shared $*.o -o $@ -I $(DataModelPath)/DataModel -L $(DataModelPath) -lDataModel -I $(ToolFrameworkPath)/include -L $(ToolFrameworkPath)/lib -lStore -LLogging $(EXTERNALS)
 
 %.o: %.cpp
-	$(CXXFLAGS) -c $< -o $@  -I $(DataModelPath) -L $(DataModelPath) -lDataModel -I $(ToolFrameworkPath)/include -L $(ToolFrameworkPath)/lib -lStore -LLogging $(EXTERNALS)
+	$(CXXFLAGS) -c $< -o $@  -I $(DataModelPath)/DataModel -L $(DataModelPath) -lDataModel -I $(ToolFrameworkPath)/include -L $(ToolFrameworkPath)/lib -lStore -LLogging $(EXTERNALS)
 
 clean:
 	rm -f */*.o
