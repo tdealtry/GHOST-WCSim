@@ -16,17 +16,17 @@ bool HKG4PrimaryGeneratorAction::Initialise(std::string configfile, DataModel& d
 	if(!m_variables.Get("verbose", m_verbose))
 		m_verbose = 1;
 
-	if(!m_data->m_p_wcsim_detector_construction.get()) {
+	if(!m_data->m_p_wcsim_detector_construction) {
 		std::cerr
 		    << "Pointer to WCSimDetectorConstruction not found. Ensure HKG4DetectorConstruction comes before HKG4PrimaryGeneratorAction in the toolchain. Exiting"
 		    << std::endl;
 		return false;
 	}
 
-	m_data->m_p_wcsim_primary_generator_action = std::unique_ptr<WCSimPrimaryGeneratorAction>(
-	    new WCSimPrimaryGeneratorAction(m_data->m_p_wcsim_detector_construction.get()));
+	m_data->m_p_wcsim_primary_generator_action = new WCSimPrimaryGeneratorAction(
+	    m_data->m_p_wcsim_detector_construction);
 
-	m_data->m_p_g4_run_manager->SetUserAction(m_data->m_p_wcsim_primary_generator_action.get());
+	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_primary_generator_action);
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;

@@ -20,7 +20,7 @@ bool HKG4PhysicsListFactory::Initialise(std::string configfile, DataModel& data)
 
 	// First set up the messenger hooks
 	m_data->m_p_wcsim_physics_list_factory =
-	    std::unique_ptr<WCSimPhysicsListFactory>(new WCSimPhysicsListFactory());
+	  new WCSimPhysicsListFactory;
 
 	// then read the mac file
 	m_data->m_p_UI->ApplyCommand("/control/execute " + m_data->m_wcsim_mac_job_opt_filename);
@@ -29,7 +29,7 @@ bool HKG4PhysicsListFactory::Initialise(std::string configfile, DataModel& data)
 	// Now we can finally setup the physics list based on the options
 	m_data->m_p_wcsim_physics_list_factory->InitializeList();
 
-	m_data->m_p_g4_run_manager->SetUserInitialization(m_data->m_p_wcsim_physics_list_factory.get());
+	G4RunManager::GetRunManager()->SetUserInitialization(m_data->m_p_wcsim_physics_list_factory);
 
 	return true;
 }

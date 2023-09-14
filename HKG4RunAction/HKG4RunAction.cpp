@@ -17,10 +17,10 @@ bool HKG4RunAction::Initialise(std::string configfile, DataModel& data) {
 		m_verbose = 1;
 
 	m_data->m_p_wcsim_run_action =
-	    std::unique_ptr<WCSimRunAction>(new WCSimRunAction(m_data->m_p_wcsim_detector_construction.get(),
-	                                                       m_data->m_p_wcsim_random_parameters.get()));
+	  new WCSimRunAction(m_data->m_p_wcsim_detector_construction,
+			     m_data->m_p_wcsim_random_parameters);
 
-	m_data->m_p_g4_run_manager->SetUserAction(m_data->m_p_wcsim_run_action.get());
+	G4RunManager::GetRunManager()->SetUserAction(m_data->m_p_wcsim_run_action);
 
 	// set options
 	std::cerr << "TODO move the options from the mac file into the toolchain config" << std::endl;

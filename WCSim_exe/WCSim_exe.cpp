@@ -1,4 +1,5 @@
 #include "WCSim_exe.h"
+#include "TFile.h"
 
 #include "WCSimRandomParameters.hh"
 #include "WCSimTuningParameters.hh"
@@ -75,36 +76,52 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 		m_number_of_events = 1;
 	}
 	// initialise the current event number
+	std::cerr << "Going to initialise the current event number" << std::endl;
 	m_data->m_current_event = 0;
+	std::cerr << "Going to initialise the current event number:Done" << std::endl;
 
 	///////////
 	// SETUP GEANT4
 	///////////
 
 	// Construct the default run manager
-	m_data->m_p_g4_run_manager = unique_ptr<G4RunManager>(new G4RunManager);
+	std::cerr << "G4RunManager memory location: " << G4RunManager::GetRunManager() << std::endl;
 
 	// get the pointer to the UI manager
-	m_data->m_p_UI = G4UImanager::GetUIpointer();
-
+	std::cerr << "UI ptr before creation: " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	G4UImanager::GetUIpointer() = G4UImanager::GetUIpointer();
+	std::cerr << "UI ptr after creation: " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	
 	// Set up the tuning parameters that need to be read before the detector
 	//  construction is done
-	m_data->m_p_g4_tuning_pars = unique_ptr<WCSimTuningParameters>(new WCSimTuningParameters);
+	m_data->m_p_g4_tuning_pars = new WCSimTuningParameters();
 	std::cout << "Processing tuning parameter file " << wcsim_mac_tuning_filename << std::endl;
-	m_data->m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
+	G4UImanager::GetUIpointer()->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
 
 	// define random number generator parameters
-	m_data->m_p_wcsim_random_parameters = unique_ptr<WCSimRandomParameters>(new WCSimRandomParameters);
+	m_data->m_p_wcsim_random_parameters = new WCSimRandomParameters();
 
 	// UserInitialization classes (mandatory)
 
 	// Set user action classes
 
+	std::cerr << "Open TFile in read mode" << std::endl;
+	TFile fread("read.root", "READ");
+	std::cerr << "Open TFile in read mode:Done" << std::endl;
+	std::cerr << "Open TFile in write mode" << std::endl;
+	TFile fwrite("read.root", "WRITE");
+	std::cerr << "Open TFile in write mode:Done" << std::endl;
+	std::cerr << "Open TFile in recreate mode" << std::endl;
+	TFile frec("read.root", "RECREATE");
+	std::cerr << "Open TFile in recreate mode:Done" << std::endl;
+
+	std::cerr << "UI ptr at end of WCSim_exe::initialise(): " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
 	return true;
 }
 
 bool WCSim_exe::Execute() {
-	if(!m_data->m_p_wcsim_detector_construction.get()) {
+  std::cerr << "UI ptr at start of WCSim_exe::execute() : " << G4UImanager::GetUIpointer() << " / " << G4UImanager::GetUIpointer() << std::endl;
+	if(!G4RunManager::GetRunManager->GetUserDetectorConstruction) {
 		std::cerr << "Pointer to WCSimDetectorConstruction not found. Exiting" << std::endl;
 		return false;
 	}
@@ -112,18 +129,18 @@ bool WCSim_exe::Execute() {
 	if(m_data->m_current_event == 0) {
 		// save all the options from WCSimTuningParameters and WCSimPhysicsListFactory
 		//(set in e.g. tuning_parameters.mac and jobOptions.mac)
-		m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
-		m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(
-		    m_data->m_p_wcsim_run_action->GetRootOptions());
+	  //m_data->m_p_g4_tuning_pars->SaveOptionsToOutput(m_data->m_p_wcsim_run_action->GetRootOptions());
+	  //	m_data->m_p_wcsim_physics_list_factory->SaveOptionsToOutput(
+	  //	    m_data->m_p_wcsim_run_action->GetRootOptions());
 
 		// Initialize G4 kernel
-		m_data->m_p_g4_run_manager->Initialize();
+		G4RunManager::GetRunManager()->Initialize();
 
-		m_data->m_p_UI->ApplyCommand("/control/execute " + m_wcsim_mac_filename);
+		G4UImanager::GetUIpointer()->ApplyCommand("/control/execute " + m_wcsim_mac_filename);
 	}
 
 	if(m_data->m_current_event < m_number_of_events) {
-		m_data->m_p_UI->ApplyCommand("/run/beamOn 1");
+		G4UImanager::GetUIpointer()->ApplyCommand("/run/beamOn 1");
 	}
 	m_data->m_current_event++;
 	if(m_data->m_current_event >= m_number_of_events)

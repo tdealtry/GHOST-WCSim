@@ -39,7 +39,7 @@ namespace HK {
 
 				private:
 
-					std::unique_ptr<WCSimTrackingAction> m_p_wcsim_tracking_action;
+			  WCSimTrackingAction* m_p_wcsim_tracking_action;
 			};
 
 		}  // namespace G4
