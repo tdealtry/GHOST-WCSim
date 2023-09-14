@@ -36,6 +36,7 @@ jobs:
         ln -s $PWD/ /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
     - name: build WCSim
       run: |
+        sed -i -e 's!geant4!./geant4!' /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
         source /usr/local/hk/setup.sh
         cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         mkdir OriginalWCSim_build
