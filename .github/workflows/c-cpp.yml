@@ -20,6 +20,9 @@ jobs:
         cd /usr/local/hk/
         echo source /usr/local/hk/hk-pilot/setup.sh >> setup.sh
         echo source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh >> setup.sh
+        echo export MAKECMDGOALS=debug >> setup.sh
+        sed -i -e 's!geant4!./geant4!' /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
+        sed -i -e 's!=LD_LIBRARY_PATH!=$LD_LIBRARY_PATH!' /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
     - name: Framework build
       run: |
         cd /usr/local/hk/ToolFrameworkCore/src/
@@ -30,29 +33,72 @@ jobs:
       run: |
         git submodule init
         git submodule update
-    - name: link
+    - name: get hk-toolapp & link ghost-wcsim
       run: |
-        mkdir -p /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
+        git clone --depth 1 -b ghost --single-branch https://github.com/tdealtry/hk-ToolApp.git /usr/local/hk/hk-ToolApp/
         ln -s $PWD/ /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/
+        cd /usr/local/hk/hk-ToolApp/
+        git log -1
     - name: build WCSim
       run: |
-        sed -i -e 's!geant4!./geant4!' /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
         source /usr/local/hk/setup.sh
         cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         mkdir OriginalWCSim_build
         cd OriginalWCSim_build
-        cmake ../OriginalWCSim
-        make
+        cmake ../OriginalWCSim -DCMAKE_BUILD_TYPE=Debug
+        make -j4
         make install
         echo source $PWD/this_wcsim.sh >> /usr/local/hk/setup.sh
     - name: build hk-datamodel
       run: |
         source /usr/local/hk/setup.sh
-        git clone https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
+        git clone --depth 1 -b main --single-branch https://github.com/tdealtry/hk-DataModel.git /usr/local/hk/hk-ToolApp/hk-DataModel
         cd /usr/local/hk/hk-ToolApp/hk-DataModel
+        git log -1
         make
-    - name: build
+    - name: build ghost-wcsim
       run: |
         source /usr/local/hk/setup.sh
         cd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/
         make
+    - name: checks
+      run: |
+        git log -1
+        source /usr/local/hk/setup.sh
+        ldd /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/lib/libWCSimCore.so.1.10 | grep Tree
+        nm /usr/local/hk/hk-ToolApp/UserTools/ImportedTools/GHOST-WCSim/OriginalWCSim_build/lib/libWCSimCore.so.1.10 | grep G4NuclearPolarization
+        geant4-config --libs
+        echo $LD_LIBRARY_PATH
+        cat /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
+    - name: build hk-toolapp
+      run: |
+        source /usr/local/hk/setup.sh
+        cd /usr/local/hk/hk-ToolApp/
+        make
+    - name: run ghost
+      run: |
+        source /usr/local/hk/setup.sh
+        cd /usr/local/hk/hk-ToolApp/
+        source ./Setup.sh
+        cd /usr/local/hk/hk-ToolApp/
+        ln -s $WCSIMDIR/data/
+        ln -s $WCSIMDIR/macros/
+        ls data
+        ls macros
+        echo run >> run.gdb
+        echo backtrace >> run.gdb
+        yum -y install gdb
+        cat run.gdb
+        gdb --batch --command=run.gdb --args ./main ghost
+        #./main ghost
+  build-with-toolapp:
+    runs-on: ubuntu-latest
+    container: ghcr.io/hyperk/hk-software:main
+    needs: build_ubuntu-latest
+    steps:
+    - name: Make setup script
+      run: |
+        cd /usr/local/hk/
+        echo source /usr/local/hk/hk-pilot/setup.sh >> setup.sh
+        echo source /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh >> setup.sh
+        sed -i -e 's!geant4!./geant4!' /usr/local/hk/hk-software/install-Linux_x86_64-gcc_8-python_3.8.13/setup.sh
