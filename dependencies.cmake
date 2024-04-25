@@ -1,0 +1,5 @@
+hk_package( ToolFrameworkCore *)
+hk_package( hk-DataModel *)
+hk_package( ROOT 6.26.04)
+hk_package( Geant4 10.3.3)
+hk_package( WCSim *)

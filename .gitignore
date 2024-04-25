@@ -2,3 +2,8 @@
 *.o
 *.so
 OriginalWCSim_build/
+
+#hk-pilot folders
+__pycache__/
+build-*/
+install-*/
