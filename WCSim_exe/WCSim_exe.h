@@ -7,7 +7,7 @@
 #include <DataModel.h>
 #include "Tool.h"
 
-#include "G4RunManager.hh"
+//#include "G4RunManager.hh"
 #include "G4UImanager.hh"
 
 /**
@@ -47,8 +47,10 @@ namespace HK {
 				*/
 				std::string GetConfigFilename(const char* config_param, const char* default_filename);
 
-				G4RunManager* m_p_run_manager;
+			//G4RunManager* m_p_run_manager;
 				G4UImanager* m_p_UI;
+			bool m_initialised;
+			std::string m_wcsim_mac_filename;
 				long m_number_of_events;
 				long m_current_event;
 		};
