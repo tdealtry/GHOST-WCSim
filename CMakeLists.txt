@@ -21,6 +21,7 @@ hk_add_tool(WCSim_exe)
 hk_add_tool(HKG4TrackingAction)
 hk_add_tool(HKG4StackingAction)
 hk_add_tool(HKG4PhysicsList)
+hk_add_tool(HKG4SteppingAction)
 
 option(WCSIM_Check_Geometry_Overlaps
   "Toggle WCSim to save photon scattering and reflection history"

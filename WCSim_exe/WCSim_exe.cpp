@@ -96,7 +96,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	//m_data->m_p_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
 
-	m_data->m_p_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, WCSimdetector));
+	//m_data->m_p_run_manager->SetUserAction(new WCSimSteppingAction(myRunAction, WCSimdetector));
 
 	m_initialised = false;
 	
