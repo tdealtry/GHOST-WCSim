@@ -79,8 +79,8 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	m_data->m_p_run_manager->SetUserInitialization(WCSimdetector);
 
 	// Set user action classes
-	WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(WCSimdetector);
-	m_data->m_p_run_manager->SetUserAction(myGeneratorAction);
+	//WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(WCSimdetector);
+	//m_data->m_p_run_manager->SetUserAction(myGeneratorAction);
 
 	WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
 
@@ -91,7 +91,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	m_data->m_p_run_manager->SetUserAction(myRunAction);
 
-	m_data->m_p_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
+	//m_data->m_p_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
 	//m_data->m_p_run_manager->SetUserAction(new WCSimTrackingAction);
 
 	//m_data->m_p_run_manager->SetUserAction(new WCSimStackingAction(WCSimdetector));
