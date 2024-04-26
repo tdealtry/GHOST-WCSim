@@ -14,10 +14,13 @@ include(HKPackageBuilder)
 hkbuilder_prepare_project()
 hk_check_dependencies()
 
+add_subdirectory(src)
+
 # Add your tools here
 hk_add_tool(WCSim_exe)
 hk_add_tool(HKG4TrackingAction)
 hk_add_tool(HKG4StackingAction)
+hk_add_tool(HKG4PhysicsList)
 
 option(WCSIM_Check_Geometry_Overlaps
   "Toggle WCSim to save photon scattering and reflection history"
