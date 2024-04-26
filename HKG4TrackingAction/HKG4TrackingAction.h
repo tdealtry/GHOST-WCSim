@@ -7,7 +7,6 @@
 #include <DataModel.h>
 #include "Tool.h"
 
-#include "G4RunManager.hh"
 #include "G4UImanager.hh"
 
 #include "WCSimTrackingAction.hh"
@@ -37,7 +36,6 @@ namespace HK {
 				bool Finalise();                   ///< Finalise funciton used to clean up resources.
 
 			private:
-				G4RunManager* m_p_run_manager;
 				G4UImanager* m_p_UI;
 			};
 		} // namespace G4
