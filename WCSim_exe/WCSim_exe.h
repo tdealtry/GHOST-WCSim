@@ -20,7 +20,7 @@
  */
 
 namespace HK {
-	namespace GHOST {
+	namespace Ghost {
 		namespace G4 {
 		class WCSim_exe : public Tool {
 
@@ -72,6 +72,6 @@ namespace HK {
 			bool FileExists(const char* filename);
 
 		} // namespace utils
-	} // namespace GHOST
+	} // namespace Ghost
 } // namespace HK
 #endif

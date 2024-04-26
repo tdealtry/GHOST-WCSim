@@ -11,9 +11,9 @@
 #include "WCSimTrackingAction.hh"
 #include "WCSimTuningParameters.hh"
 
-using namespace HK::GHOST::G4;
+using namespace HK::Ghost::G4;
 
-bool HK::GHOST::utils::FileExists(const char* filename) {
+bool HK::Ghost::utils::FileExists(const char* filename) {
 	bool exists = access(filename, F_OK) != -1;
 	if(!exists) {
 		std::cerr << filename << " not found or inaccessible." << std::endl;
@@ -21,7 +21,7 @@ bool HK::GHOST::utils::FileExists(const char* filename) {
 	return exists;
 }
 
-std::string HK::GHOST::utils::GetEnvironmentVariableWithDefault(const char* variable,
+std::string HK::Ghost::utils::GetEnvironmentVariableWithDefault(const char* variable,
                                                                 const char* default_value) {
 	std::string env;
 	char* env_temp = std::getenv(variable);
@@ -70,7 +70,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 		m_verbose = 1;
 
 	// get all the mac files
-	std::string wcsim_dir = utils::GetEnvironmentVariableWithDefault("WCSIMDIR", "./");
+	std::string wcsim_dir = utils::GetEnvironmentVariableWithDefault("WCSIM_BUILD_DIR", "./");
 	std::string wcsim_mac_job_opt_filename =
 	    GetConfigFilename("wcsim_mac_job_opt_filename", (wcsim_dir + "/macros/jobOptions.mac").c_str());
 	std::string wcsim_mac_tuning_filename =
