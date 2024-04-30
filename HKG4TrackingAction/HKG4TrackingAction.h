@@ -8,9 +8,6 @@
 #include "Tool.h"
 
 #include "G4UImanager.hh"
-#include "G4UserTrackingAction.hh"
-
-#include "WCSimTrackingAction.hh"
 
 /**
  * \class HKG4TrackingAction
@@ -23,7 +20,7 @@
 namespace HK {
 	namespace Ghost {
 		namespace G4 {
-			class HKG4TrackingAction : public Tool, public G4UserTrackingAction {
+			class HKG4TrackingAction : public Tool {
 
 			public:
 
@@ -37,35 +34,7 @@ namespace HK {
 				bool Finalise() override;                   ///< Finalise funciton used to clean up resources.
 
 			private:
-				G4UImanager* m_p_UI;
-
-			public:
-				void PreUserTrackingAction (const G4Track* aTrack) override;
-				void PostUserTrackingAction(const G4Track*) override;
-
-				void SetFractionChPhotons(G4double fraction){percentageOfCherenkovPhotonsToDraw = fraction;}
-  
-				void AddProcess(const G4String &process){ProcessList.insert(process);}
-				void AddParticle(G4int pid){ParticleList.insert(pid);}
-				void SetSaveHitProducingTracks(G4bool save){saveHitProducingTracks = save;}
-				G4bool GetSaveHitProducingTracks() const {return saveHitProducingTracks;}
-
-			private:
-				std::set<G4String> ProcessList;
-				std::set<G4int> ParticleList;
-				G4bool saveHitProducingTracks = true;
-  
-				G4double fTime_birth;
-				G4double fMaxTime;
-				// TF: define in macro now
-				G4double percentageOfCherenkovPhotonsToDraw;
-
-				bool SAVE_PHOTON_HISTORY;
-
-				WCSimTrackingMessenger* messenger;
-  
-				G4int primaryID;
-				
+				G4UImanager* m_p_UI;				
 			};
 		} // namespace G4
 	} // namespace Ghost
