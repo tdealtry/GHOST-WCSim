@@ -67,7 +67,7 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 	m_p_UI->ApplyCommand("/control/execute " + wcsim_mac_tuning_filename);
 
 	// define random number generator parameters
-	WCSimRandomParameters* randomparameters = new WCSimRandomParameters();
+	//WCSimRandomParameters* randomparameters = new WCSimRandomParameters();
 
 	// UserInitialization classes (mandatory)
 	enum DetConfiguration { wfm = 1, fwm = 2 };
@@ -78,18 +78,20 @@ bool WCSim_exe::Initialise(std::string configfile, DataModel& data) {
 
 	m_data->m_p_run_manager->SetUserInitialization(WCSimdetector);
 
+	*m_log << ML(0) << "TODO: Add tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());" << endl;
+	
 	// Set user action classes
 	//WCSimPrimaryGeneratorAction* myGeneratorAction = new WCSimPrimaryGeneratorAction(WCSimdetector);
 	//m_data->m_p_run_manager->SetUserAction(myGeneratorAction);
 
-	WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
+	//WCSimRunAction* myRunAction = new WCSimRunAction(WCSimdetector, randomparameters);
 
 	// save all the options from WCSimTuningParameters & WCSimPhysicsListFactory
 	//(set in tuning_parameters.mac & jobOptions*.mac)
-	tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());
+	//tuningpars->SaveOptionsToOutput(myRunAction->GetRootOptions());
 	//physFactory->SaveOptionsToOutput(myRunAction->GetRootOptions());
 
-	m_data->m_p_run_manager->SetUserAction(myRunAction);
+	//m_data->m_p_run_manager->SetUserAction(myRunAction);
 
 	//m_data->m_p_run_manager->SetUserAction(new WCSimEventAction(myRunAction, WCSimdetector, myGeneratorAction));
 	//m_data->m_p_run_manager->SetUserAction(new WCSimTrackingAction);
